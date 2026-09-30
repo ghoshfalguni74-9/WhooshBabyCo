@@ -19,11 +19,25 @@ SITE_ROOT = BASE_DIR / "html.txt_project"
 TEMPLATE_DIR = BASE_DIR / "templates"
 STATIC_DIR = BASE_DIR / "static"
 
-SECRET_KEY = "django-insecure-dev-only-key"
-DEBUG = True
-ALLOWED_HOSTS = ["localhost","127.0.0.1",".ngrok-free.dev",
+SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-dev-only-key")
+DEBUG = os.environ.get("DEBUG", "False" if os.environ.get("RENDER") else "True").lower() in ("true", "1", "t")
+
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", ".ngrok-free.dev", ".onrender.com"]
+RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+if os.environ.get("ALLOWED_HOSTS"):
+    ALLOWED_HOSTS.extend([h.strip() for h in os.environ.get("ALLOWED_HOSTS").split(",") if h.strip()])
+if DEBUG:
+    ALLOWED_HOSTS.append("*")
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://outbid-selective-ceramics.ngrok-free.dev",
 ]
-CSRF_TRUSTED_ORIGINS=["https://outbid-selective-ceramics.ngrok-free.dev"]
+if RENDER_EXTERNAL_HOSTNAME:
+    CSRF_TRUSTED_ORIGINS.append(f"https://{RENDER_EXTERNAL_HOSTNAME}")
+if os.environ.get("CSRF_TRUSTED_ORIGINS"):
+    CSRF_TRUSTED_ORIGINS.extend([origin.strip() for origin in os.environ.get("CSRF_TRUSTED_ORIGINS").split(",") if origin.strip()])
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -37,6 +51,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -65,12 +80,31 @@ TEMPLATES = [
 WSGI_APPLICATION = "whoosh_site.wsgi.application"
 ASGI_APPLICATION = "whoosh_site.asgi.application"
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+DATABASE_URL = os.environ.get("DATABASE_URL")
+if DATABASE_URL:
+    try:
+        import dj_database_url
+        DATABASES = {
+            "default": dj_database_url.config(
+                default=DATABASE_URL,
+                conn_max_age=600,
+                conn_health_checks=True,
+            )
+        }
+    except ImportError:
+        DATABASES = {
+            "default": {
+                "ENGINE": "django.db.backends.sqlite3",
+                "NAME": BASE_DIR / "db.sqlite3",
+            }
+        }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
     }
-}
 
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
@@ -85,10 +119,21 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = "/static/"
-STATIC_DIR=BASE_DIR/"static"
+STATIC_DIR = BASE_DIR / "static"
 STATICFILES_DIRS = [STATIC_DIR]
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+    },
+}
+
 MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR/"media"
+MEDIA_ROOT = BASE_DIR / "media"
 
 RAZORPAY_KEY_ID = os.environ.get("RAZORPAY_KEY_ID", "")
 RAZORPAY_KEY_SECRET = os.environ.get("RAZORPAY_KEY_SECRET", "")
