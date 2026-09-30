@@ -1,0 +1,95 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Whoosh - Baby Products{% endblock %}
+
+{% block content %}
+<section class="container home-hero">
+  <div class="playful-scene" aria-hidden="true">
+    <span class="scene-cloud cloud-one"></span>
+    <span class="scene-cloud cloud-two"></span>
+    <span class="scene-teddy">🧸</span>
+    <span class="scene-ball">⚽</span>
+    <span class="scene-star">★</span>
+  </div>
+  <div class="hero">
+    <div class="hero-copy">
+      <h1>wHoosH</h1>
+      <p>Gentle care for little ones — bathing essentials, clothing, baby food, accessories and much more...</p>
+    </div>
+  </div>
+
+  <div class="category-grid" role="list">
+    <a class="category-card" href="{% url 'category' 'soap' %}">
+      <img src="https://www.rusticart.in/cdn/shop/files/baby_soap_mobile_-1_300x300.jpg?v=1785741834" alt="Soap">
+      <h4>Soaps</h4>
+    </a>
+    <a class="category-card" href="{% url 'category' 'shampoo' %}">
+      <img src="https://www.rusticart.in/cdn/shop/files/coconut_nectar_baby_shampoo_-_1_1024x.png?v=1785738701" alt="Shampoo">
+      <h4>Shampoo</h4>
+    </a>
+    <a class="category-card" href="{% url 'category' 'oil' %}">
+      <img src="https://www.verywellhealth.com/thmb/0-43McNF2lBk0eju6x3woj7VSMk=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/VWH-GettyImages-2178336222-2ed0379b39ff4bd29a3bea7953939d82.jpg" alt="Oil">
+      <h4>Oil</h4>
+    </a>
+    <a class="category-card" href="{% url 'category' 'clothes' %}">
+      <img src="https://t3.ftcdn.net/jpg/02/81/79/72/360_F_281797213_gaWzIyTYzcoz5vuznJxciN1jWLJnomAK.jpg" alt="Clothes">
+      <h4>Clothes</h4>
+    </a>
+    <a class="category-card" href="{% url 'category' 'toys' %}">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9jjTpcQ0ynoBev6HSvtOeQkGS2QbuDnCwjI8RvNB3mg&s=10" alt="Toys">
+      <h4>Toys</h4>
+    </a>
+    <a class="category-card" href="{% url 'category' 'accessories' %}">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTv69_l4F8tG0RIgX_Pha8hFGp2z-r89VRneg6exfhsoA&s=10" alt="Accessories">
+      <h4>Accessories</h4>
+    </a>
+  </div>
+
+  <section class="featured-section">
+    <h2>Featured Products</h2>
+    <div class="featured-grid">
+      <article class="feature-card">
+        <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80" alt="Nutrition">
+        <h5>Nutrition</h5>
+        <p>Calculate your kid's food value</p>
+        <a href="{% url 'nutrition' %}" class="button">Calculate</a>
+      </article>
+      <article class="feature-card">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRT3ITIhjl73UOi-731Gt5Jyu_tFOF76tRdC_Fv22_nTg&s=10" alt="Growth">
+        <h5>Growth</h5>
+        <p>Check your kid's development</p>
+        <a href="{% url 'growth' %}" class="button">Check</a>
+      </article>
+      <article class="feature-card">
+        <img src="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=800&q=80" alt="Appointment">
+        <h5>Appointment</h5>
+        <p>Book an appointment with your nearest pediatrician</p>
+        <a href="{% url 'appointment' %}" class="button">Show</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="donation-banner" id="donationBanner">
+    <div class="banner-slide" id="bannerSlide" style="background-image:url('https://global.unitednations.entermediadb.net/assets/mediadb/services/module/asset/downloads/preset/assets/2019/07/15-07-2019_UNICEF_food-security_311096.jpg/image1170x530cropped.jpg');"></div>
+    <div class="overlay">
+      <h3>Help</h3>
+      <p>With every purchase you make , we provide for 5 kids</p>
+    </div>
+  </section>
+</section>
+<script>
+  (function(){
+    const images = [
+      'https://global.unitednations.entermediadb.net/assets/mediadb/services/module/asset/downloads/preset/assets/2019/07/15-07-2019_UNICEF_food-security_311096.jpg/image1170x530cropped.jpg',
+      'https://cf-images.assettype.com/nationalherald/2021-07/0c67b5d0-c3a6-4901-9320-1a234b1d0f7a/Lockdown.jpg?w=1200&h=675&auto=format%2Ccompress&fit=max&enlarge=true',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkpS0HvQAAr3Y97E9n5pV-nmPGHEPHkmleBffud-HXyAzW-Sm2e0I_frw&s=10'
+    ];
+    let i = 0;
+    const slide = document.getElementById('bannerSlide');
+    setInterval(() => {
+      i = (i + 1) % images.length;
+      slide.style.backgroundImage = `url('${images[i]}')`;
+    }, 5000);
+  })();
+</script>
+{% endblock %}

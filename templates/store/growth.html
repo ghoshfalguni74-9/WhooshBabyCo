@@ -1,0 +1,60 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Growth Tracker | Whoosh{% endblock %}
+
+{% block content %}
+<div class="container page-shell">
+  <section class="hero">
+    <h1>Growth Tracker</h1>
+    <p class="subtitle">Compare height and weight patterns by age for girls and boys.</p>
+  </section>
+
+  <section class="card">
+    <p>These reference charts are educational estimates. A pediatrician should interpret your child's growth over time.</p>
+    <div class="grid">
+      <div>
+        <h2>Girls: height x weight</h2>
+        <canvas id="girlsChart" height="260" aria-label="Girls height and weight chart"></canvas>
+      </div>
+      <div>
+        <h2>Boys: height x weight</h2>
+        <canvas id="boysChart" height="260" aria-label="Boys height and weight chart"></canvas>
+      </div>
+    </div>
+  </section>
+  <a class="back" href="{% url 'home' %}">← Return to home</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  const girlsHeight = [75, 87, 96, 103, 110, 116, 122, 128, 134, 140, 146, 152];
+  const girlsWeight = [9, 12, 14, 16, 18, 20, 23, 26, 29, 33, 37, 42];
+  const boysHeight = [76, 88, 97, 104, 111, 117, 123, 129, 135, 141, 147, 153];
+  const boysWeight = [10, 13, 15, 17, 19, 21, 24, 27, 30, 34, 38, 43];
+
+  function makeChart(id, heightData, weightData, color) {
+    new Chart(document.getElementById(id), {
+      type: 'line',
+      data: {
+        labels: ages.map(age => `${age} yr`),
+        datasets: [
+          { label: 'Height (cm)', data: heightData, borderColor: color, backgroundColor: color, yAxisID: 'height', tension: 0.25 },
+          { label: 'Weight (kg)', data: weightData, borderColor: '#ff6f61', backgroundColor: '#ff6f61', yAxisID: 'weight', tension: 0.25 }
+        ]
+      },
+      options: {
+        responsive: true,
+        interaction: { mode: 'index', intersect: false },
+        scales: {
+          height: { type: 'linear', position: 'left', title: { display: true, text: 'Height (cm)' } },
+          weight: { type: 'linear', position: 'right', title: { display: true, text: 'Weight (kg)' }, grid: { drawOnChartArea: false } }
+        }
+      }
+    });
+  }
+
+  makeChart('girlsChart', girlsHeight, girlsWeight, '#0b69a3');
+  makeChart('boysChart', boysHeight, boysWeight, '#7c3aed');
+</script>
+{% endblock %}

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Whoosh | Growth Tracker</title>
+  <style>
+    :root {
+      --brand: #0b69a3;
+      --brand-dark: #094b7d;
+      --accent: #ff6f61;
+      --bg: #f5f7fb;
+      --panel: #ffffff;
+      --panel-soft: #eef4fb;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --success-bg: #ebf9f1;
+      --success-text: #1d5c3d;
+      --border: #dfe7f2;
+      --shadow: rgba(15, 23, 42, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .topbar {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--brand);
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .logo-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+      color: #fff;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 6px 14px rgba(11,105,163,0.25);
+      font-size: 22px;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1;
+      font-weight: 800;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #333;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 20px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+
+    .nav-links a:hover {
+      background: rgba(0,0,0,0.04);
+    }
+
+    .hero {
+      background:
+        linear-gradient(rgba(11, 105, 163, 0.72), rgba(11, 105, 163, 0.8)),
+        url('https://cdn.pfizer.com/pfizercom/styles/convert_to_webp/s3/Growth.jpg.webp?VersionId=BnsBy9nIbD77VAim9vgqb5MFhhZ8L4Eb&itok=gyIcNHgE') center/cover no-repeat;
+      color: white;
+      border-radius: 18px;
+      margin-top: 28px;
+      padding: 34px 24px;
+      box-shadow: 0 16px 34px rgba(11,105,163,0.18);
+      position: relative;
+      overflow: hidden;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      top: -70px;
+      right: -30px;
+    }
+
+    .hero::after {
+      width: 120px;
+      height: 120px;
+      left: 10%;
+      bottom: -30px;
+      top: auto;
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: clamp(2rem, 4vw, 3rem);
+      position: relative;
+      z-index: 1;
+    }
+
+    .subtitle {
+      margin: 0;
+      font-size: 1.05rem;
+      opacity: 0.96;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card {
+      background: var(--panel);
+      border-radius: 18px;
+      box-shadow: 0 10px 25px var(--shadow);
+      padding: 28px 24px;
+      margin-top: 24px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 18px;
+    }
+
+    label {
+      display: grid;
+      gap: 8px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 1rem;
+      background: #fff;
+      color: var(--text);
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 20px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      opacity: 0.96;
+    }
+
+    .result-box {
+      margin-top: 20px;
+      background: var(--success-bg);
+      border: 1px solid #cbeed8;
+      border-radius: 12px;
+      padding: 18px;
+      color: var(--success-text);
+      line-height: 1.5;
+    }
+
+    .result-box strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1.08rem;
+    }
+
+    .back {
+      display: inline-block;
+      margin-top: 20px;
+      color: var(--brand);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="container nav">
+      <div class="logo">
+        <span class="logo-badge">!^!</span>
+        <span>Whoosh BabyCo</span>
+      </div>
+      <nav class="nav-links">
+        <a href="whoosh_babyco.html" aria-label="Home">🏠</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="container">
+    <section class="hero">
+      <h1>Growth Tracker</h1>
+      <p class="subtitle">Track simple development milestones for your child.</p>
+    </section>
+
+    <div class="card">
+      <form id="growthForm">
+        <div class="grid">
+          <label>
+            Child age (months)
+            <input type="number" id="age" min="1" max="216" value="24">
+          </label>
+          <label>
+            Height (cm)
+            <input type="number" id="height" min="30" max="200" step="0.1" value="85">
+          </label>
+          <label>
+            Weight (kg)
+            <input type="number" id="weight" min="2" max="100" step="0.1" value="12">
+          </label>
+        </div>
+
+        <div style="margin-top: 10px;">
+          <button type="submit" class="btn">Check growth</button>
+        </div>
+      </form>
+
+      <div class="result-box" id="resultBox">
+        <strong>Growth summary</strong>
+        Your child is within a healthy early growth range. Keep monitoring monthly.
+      </div>
+    </div>
+
+    <a class="back" href="whoosh_babyco.html">← Return to home</a>
+  </div>
+
+  <script>
+    document.getElementById('growthForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const age = Number(document.getElementById('age').value) || 24;
+      const height = Number(document.getElementById('height').value) || 85;
+      const weight = Number(document.getElementById('weight').value) || 12;
+
+      const bmi = weight / ((height / 100) ** 2);
+
+      let status = 'Healthy range';
+      if (bmi < 15) status = 'Below expected range';
+      else if (bmi > 18) status = 'Above expected range';
+
+      document.getElementById('resultBox').innerHTML = `
+        <strong>Growth summary</strong>
+        Age: ${age} months • Height: ${height} cm • Weight: ${weight} kg<br>
+        BMI: ${bmi.toFixed(1)} • Status: ${status}. Schedule a pediatric check-up if this trend continues.
+      `;
+    });
+  </script>
+</body>
+</html>

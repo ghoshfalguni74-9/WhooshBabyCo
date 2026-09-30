@@ -1,0 +1,6 @@
+<!DOCTYPE html>
+<head>
+<title> e-commerce store </title>
+</head>
+<body>
+<h1>

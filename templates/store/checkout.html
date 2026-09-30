@@ -1,0 +1,78 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Checkout | Whoosh{% endblock %}
+
+{% block content %}
+<div class="container page-shell">
+  <div class="cart-heading">
+    <div>
+      <p class="eyebrow">WHOOSH BABYCO</p>
+      <h1>Review your order</h1>
+      <p class="muted">Confirm your details before choosing a payment method.</p>
+    </div>
+    <a class="button secondary-button" href="{% url 'cart' %}">Back to cart</a>
+  </div>
+  <div class="checkout-layout">
+    <section class="checkout-panel">
+      <h2>Delivery details</h2>
+      <form id="checkoutForm" class="checkout-form">
+        <label>Name<input id="customerName" required value="{{ customer_name|escape }}" autocomplete="name"></label>
+        <label>Phone number<input id="customerPhone" required value="{{ customer_phone|escape }}" autocomplete="tel"></label>
+        <label>Address<textarea id="customerAddress" required rows="4" autocomplete="street-address">{{ customer_address|escape }}</textarea></label>
+        <button id="newAddressButton" class="button secondary-button" type="button">Add new address</button>
+        <button class="button" type="submit">Continue</button>
+      </form>
+      <p id="checkoutError" class="payment-error" hidden></p>
+    </section>
+    <aside class="checkout-panel">
+      <h2>Products from cart</h2>
+      <div id="orderLines" class="order-lines"></div>
+      <div class="cart-summary" style="box-shadow:none;padding:0;margin:20px 0 0;max-width:none">
+        <div><span>Subtotal</span><strong id="subtotal">₹0.00</strong></div>
+        <div><span>GST (18%)</span><strong id="gst">₹0.00</strong></div>
+        <div class="cart-total"><span>Total amount</span><strong id="grandTotal">₹0.00</strong></div>
+      </div>
+      <p id="savedMessage" class="saved-message">Congratulations, you saved ₹0.00 on this order</p>
+      <p class="shipping-note"><strong>Estimated shipping:</strong> <span id="shippingDate"></span> (7 days after your order date)</p>
+    </aside>
+  </div>
+</div>
+<script>
+  const cartKey = 'whoosh_cart';
+  const money = value => `₹${value.toFixed(2)}`;
+  const escapeHtml = value => String(value).replace(/[&<>'"]/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char]));
+  const cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
+  const subtotal = cart.reduce((sum, item) => sum + (Number(item.originalPrice || item.price) || 0) * (Number(item.quantity) || 1), 0);
+  const firstOrderDiscount = subtotal * 0.15;
+  const discountedSubtotal = subtotal - firstOrderDiscount;
+  const gst = discountedSubtotal * 0.5;
+  const total = discountedSubtotal + gst;
+  const saved = firstOrderDiscount;
+  const shippingDate = new Date();
+  shippingDate.setDate(shippingDate.getDate() + 7);
+  document.getElementById('shippingDate').textContent = shippingDate.toLocaleDateString(undefined, {day: 'numeric', month: 'long', year: 'numeric'});
+  document.getElementById('orderLines').innerHTML = cart.length ? cart.map(item => { const quantity = Number(item.quantity) || 1; const actual = (Number(item.originalPrice || item.price) || 0) * quantity; const discount = actual * 0.15; return `<div class="order-line"><span>${escapeHtml(item.name)}<small class="muted"> · Product ID: ${escapeHtml(item.product_code || 'legacy')}</small> × ${quantity}</span><strong>${money(actual - discount)}<small class="muted"> (actual ${money(actual)})</small></strong></div>`; }).join('') : '<p class="muted">Your cart is empty.</p>';
+  document.getElementById('subtotal').textContent = money(subtotal);
+  document.getElementById('gst').textContent = money(gst);
+  document.getElementById('grandTotal').textContent = money(total);
+  document.getElementById('savedMessage').textContent = `Congratulations, you saved ${money(Math.max(saved, 0))} on this order`;
+  if (!cart.length) document.getElementById('checkoutForm').querySelector('button').disabled = true;
+  document.getElementById('newAddressButton').addEventListener('click', () => {
+    const address = document.getElementById('customerAddress');
+    address.value = '';
+    address.focus();
+  });
+  document.getElementById('checkoutForm').addEventListener('submit', event => {
+    event.preventDefault();
+    if (!cart.length) return;
+    localStorage.setItem('whoosh_checkout_customer', JSON.stringify({
+      name: document.getElementById('customerName').value.trim(),
+      phone: document.getElementById('customerPhone').value.trim(),
+      address: document.getElementById('customerAddress').value.trim(),
+    }));
+    localStorage.setItem('whoosh_checkout_total', total.toFixed(2));
+    localStorage.setItem('whoosh_checkout_shipping_date', shippingDate.toISOString().slice(0, 10));
+    window.location.href = '{% url "payment" %}';
+  });
+</script>
+{% endblock %}

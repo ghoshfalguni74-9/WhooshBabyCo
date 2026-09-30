@@ -1,0 +1,62 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Nutrition Calculator | Whoosh{% endblock %}
+
+{% block content %}
+<div class="container page-shell">
+  <section class="hero">
+    <h1>Nutrition Calculator</h1>
+    <p class="subtitle">Enter your child's details to estimate daily nutrition needs.</p>
+  </section>
+
+  <section class="card appointment-card">
+    <form method="post">
+      {% csrf_token %}
+      <div class="grid">
+        <label>Child age (years)
+          <input type="number" name="age" min="1" max="18" step="1" required value="{{ request.POST.age }}">
+        </label>
+        <label>Height (cm)
+          <input type="number" name="height" min="40" max="220" step="0.1" required value="{{ request.POST.height }}">
+        </label>
+        <label>Weight (kg)
+          <input type="number" name="weight" min="2" max="150" step="0.1" required value="{{ request.POST.weight }}">
+        </label>
+      </div>
+      <div class="grid">
+        <label>Activity level
+          <select name="activity" required>
+            <option value="low" {% if request.POST.activity == 'low' %}selected{% endif %}>Low</option>
+            <option value="normal" {% if request.POST.activity == 'normal' or not request.POST.activity %}selected{% endif %}>Normal</option>
+            <option value="active" {% if request.POST.activity == 'active' %}selected{% endif %}>Active</option>
+          </select>
+        </label>
+        <label>Food preference
+          <select name="preference" required>
+            <option value="veg" {% if request.POST.preference == 'veg' %}selected{% endif %}>Vegetarian</option>
+            <option value="nonveg" {% if request.POST.preference == 'nonveg' %}selected{% endif %}>Non-vegetarian</option>
+            <option value="mixed" {% if request.POST.preference == 'mixed' or not request.POST.preference %}selected{% endif %}>Mixed</option>
+          </select>
+        </label>
+      </div>
+      <button class="button" type="submit">Calculate nutrition</button>
+    </form>
+
+    {% if result %}
+      <div class="result-box">
+        {% if result.error %}
+          <strong>Check your entries</strong>
+          {{ result.error }}
+        {% else %}
+          <strong>Estimated daily nutrition</strong>
+          Calories: {{ result.calories }} kcal<br>
+          Protein: {{ result.protein }} g<br>
+          Water: {{ result.water }} ml<br>
+          Suggested diet: {{ result.diet }}.
+        {% endif %}
+      </div>
+    {% endif %}
+  </section>
+  <a class="back" href="{% url 'home' %}">← Return to home</a>
+</div>
+{% endblock %}

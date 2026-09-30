@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Whoosh | Pediatric Appointment</title>
+  <style>
+    :root {
+      --brand: #0b69a3;
+      --brand-dark: #094b7d;
+      --accent: #ff6f61;
+      --bg: #f5f7fb;
+      --panel: #ffffff;
+      --panel-soft: #eef4fb;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --success-bg: #ebf9f1;
+      --success-text: #1d5c3d;
+      --border: #dfe7f2;
+      --shadow: rgba(15, 23, 42, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .topbar {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--brand);
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .logo-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+      color: #fff;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 6px 14px rgba(11,105,163,0.25);
+      font-size: 22px;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1;
+      font-weight: 800;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #333;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 20px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+
+    .nav-links a:hover {
+      background: rgba(0,0,0,0.04);
+    }
+
+    .hero {
+      background:
+        linear-gradient(rgba(11, 105, 163, 0.72), rgba(11, 105, 163, 0.8)),
+        url('https://images.squarespace-cdn.com/content/v1/51b0fab9e4b0de4cb6c0270e/1602010752975-GVR8I3OQF6M1OPYG5D7H/Depositphotos_187924726_l-2015.jpg') center/cover no-repeat;
+      color: white;
+      border-radius: 18px;
+      margin-top: 28px;
+      padding: 34px 24px;
+      box-shadow: 0 16px 34px rgba(11,105,163,0.18);
+      position: relative;
+      overflow: hidden;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      top: -70px;
+      right: -30px;
+    }
+
+    .hero::after {
+      width: 120px;
+      height: 120px;
+      left: 10%;
+      bottom: -30px;
+      top: auto;
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: clamp(2rem, 4vw, 3rem);
+      position: relative;
+      z-index: 1;
+    }
+
+    .subtitle {
+      margin: 0;
+      font-size: 1.05rem;
+      opacity: 0.96;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card {
+      background: var(--panel);
+      border-radius: 18px;
+      box-shadow: 0 10px 25px var(--shadow);
+      padding: 28px 24px;
+      margin-top: 24px;
+    }
+
+    form {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    label {
+      display: grid;
+      gap: 8px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 1rem;
+      background: #fff;
+      color: var(--text);
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 20px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      opacity: 0.96;
+    }
+
+    .result-box {
+      margin-top: 18px;
+      background: var(--success-bg);
+      border: 1px solid #cbeed8;
+      border-radius: 12px;
+      padding: 18px;
+      color: var(--success-text);
+      line-height: 1.5;
+    }
+
+    .result-box strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1.08rem;
+    }
+
+    .back {
+      display: inline-block;
+      margin-top: 20px;
+      color: var(--brand);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="container nav">
+      <div class="logo">
+        <span class="logo-badge">!^!</span>
+        <span>Whoosh BabyCo</span>
+      </div>
+      <nav class="nav-links">
+        <a href="whoosh_babyco.html" aria-label="Home">🏠</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="container">
+    <section class="hero">
+      <h1>Pediatric Appointment</h1>
+      <p class="subtitle">Book a consultation with a trusted pediatrician near you.</p>
+    </section>
+
+    <div class="card">
+      <form id="appointmentForm">
+        <div class="grid">
+          <label>
+            Child name
+            <input type="text" id="childName" placeholder="Enter your child's name">
+          </label>
+          <label>
+            Parent name
+            <input type="text" id="parentName" placeholder="Enter parent name">
+          </label>
+          <label>
+            Preferred date
+            <input type="date" id="appointmentDate">
+          </label>
+        </div>
+
+        <div class="grid">
+          <label>
+            Clinic area
+            <select id="clinicArea">
+              <option value="" selected disabled>Select area</option>
+              <option value="Andal">Andal</option>
+              <option value="Asansol">Asansol</option>
+              <option value="Durgapur">Durgapur</option>
+              <option value="Raniganj">Raniganj</option>
+            </select>
+          </label>
+          <label>
+            Consultation type
+            <select id="consultType">
+              <option value="Routine Checkup">Routine Checkup</option>
+              <option value="Vaccination">Vaccination</option>
+              <option value="Reports Review">Reports Review</option>
+            </select>
+          </label>
+        </div>
+
+        <button type="button" class="btn" id="findHospitalBtn">Find hospital</button>
+      </form>
+
+      <div class="result-box" id="resultBox" style="display:none;">
+        <strong>Clinic contact</strong>
+        <span id="resultText"></span>
+      </div>
+    </div>
+
+    <a class="back" href="whoosh_babyco.html">← Return to home</a>
+  </div>
+
+  <script>
+    const hospitalContacts = {
+      Andal: { name: 'Andal Government Hospital', phone: '+91 90000 11111' },
+      Asansol: { name: 'Asansol Government Hospital', phone: '+91 90000 22222' },
+      Durgapur: { name: 'Durgapur Government Hospital', phone: '+91 90000 33333' },
+      Raniganj: { name: 'Raniganj Government Hospital', phone: '+91 90000 44444' }
+    };
+
+    const resultBox = document.getElementById('resultBox');
+    const resultText = document.getElementById('resultText');
+    const form = document.getElementById('appointmentForm');
+
+    document.getElementById('findHospitalBtn').addEventListener('click', function () {
+      const childName = document.getElementById('childName').value.trim();
+      const parentName = document.getElementById('parentName').value.trim();
+      const date = document.getElementById('appointmentDate').value;
+      const area = document.getElementById('clinicArea').value;
+
+      if (!childName || !parentName || !date || !area) {
+        alert('Please fill in the child name, parent name, preferred date, and clinic area before searching.');
+        return;
+      }
+
+      const hospital = hospitalContacts[area];
+      if (!hospital) {
+        resultBox.style.display = 'none';
+        alert('Please select a valid clinic area.');
+        return;
+      }
+
+      resultText.innerHTML = `${parentName}, for ${childName} on ${date}, the nearest government facility is <strong>${hospital.name}</strong> in ${area}. Contact: <strong>${hospital.phone}</strong>.`;
+      resultBox.style.display = 'block';
+    });
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      document.getElementById('findHospitalBtn').click();
+    });
+  </script>
+</body>
+</html>

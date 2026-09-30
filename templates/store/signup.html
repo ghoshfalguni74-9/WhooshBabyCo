@@ -1,0 +1,45 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Sign up | Whoosh{% endblock %}
+
+{% block content %}
+<div class="container page-shell">
+  <div class="login-card">
+    <h1>Create account</h1>
+    <form method="post">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ next_url }}">
+      {% for field in form %}
+        <div class="field-block">
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}
+            <div class="error-text">{{ field.errors|join:', ' }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+      <button type="submit" class="button">Create account</button>
+    </form>
+  </div>
+</div>
+<script>
+  ['id_password1', 'id_password2'].forEach(id => {
+    const field = document.getElementById(id);
+    if (!field) return;
+    const wrapper = document.createElement('span');
+    wrapper.className = 'password-field';
+    field.parentNode.insertBefore(wrapper, field);
+    wrapper.appendChild(field);
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'password-toggle';
+    button.textContent = 'Show';
+    button.setAttribute('aria-label', 'Show password');
+    button.addEventListener('click', () => {
+      field.type = field.type === 'password' ? 'text' : 'password';
+      button.textContent = field.type === 'password' ? 'Show' : 'Hide';
+    });
+    wrapper.appendChild(button);
+  });
+</script>
+{% endblock %}

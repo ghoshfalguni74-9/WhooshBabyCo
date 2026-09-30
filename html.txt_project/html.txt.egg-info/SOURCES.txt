@@ -1,0 +1,8 @@
+dev-requirements.txt
+pyproject.toml
+html.txt.egg-info/PKG-INFO
+html.txt.egg-info/SOURCES.txt
+html.txt.egg-info/dependency_links.txt
+html.txt.egg-info/requires.txt
+html.txt.egg-info/top_level.txt
+tests/test_html.txt.py

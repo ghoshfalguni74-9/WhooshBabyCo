@@ -1,0 +1,29 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Profile | Whoosh{% endblock %}
+
+{% block content %}
+<div class="container page-shell">
+  <div class="profile-card">
+    <h1>Your profile</h1>
+    {% if messages %}
+      {% for message in messages %}
+        <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+    <form method="post">
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="field-block">
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}
+            <div class="error-text">{{ field.errors|join:', ' }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+      <button type="submit" class="button">Save changes</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

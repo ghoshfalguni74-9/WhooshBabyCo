@@ -1,0 +1,138 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Payment | Whoosh{% endblock %}
+
+{% block content %}
+<div class="container page-shell">
+  <div class="cart-heading">
+    <div>
+      <p class="eyebrow">WHOOSH BABYCO</p>
+      <h1>Choose payment</h1>
+      <p class="muted">Your order total is ready. Select how you would like to pay.</p>
+    </div>
+    <a class="button secondary-button" href="{% url 'checkout' %}">Back to details</a>
+  </div>
+  <section class="checkout-panel" style="max-width:680px;margin:0 auto">
+    <div class="cart-total"><span>Total amount</span><strong id="paymentTotal">₹0.00</strong></div>
+    <p class="shipping-note"><strong>Estimated shipping:</strong> <span id="paymentShippingDate"></span> (7 days after your order date)</p>
+    <div class="payment-actions">
+      <label class="payment-choice"><input type="radio" name="paymentMethod" value="online" checked> Online Payment</label>
+      <label class="payment-choice"><input type="radio" name="paymentMethod" value="cod"> Cash on delivery</label>
+      <button id="payButton" class="button" type="button">Pay online</button>
+    </div>
+    <p id="paymentError" class="payment-error" hidden></p>
+  </section>
+</div>
+<div id="successOverlay" class="success-overlay" hidden>
+  <div class="success-modal" role="dialog" aria-live="assertive">
+    <div class="success-characters" aria-hidden="true"><span>🧸</span><span>👧</span><span>🧸</span><span>👦</span></div>
+    <span class="confetti"></span><span class="confetti"></span><span class="confetti"></span><span class="confetti"></span>
+    <h2>Congratulations!</h2>
+    <p>Your order has been placed</p>
+    <p class="muted">Order ID: <strong id="successOrderId"></strong></p>
+    <p class="shipping-note"><strong>Estimated shipping:</strong> <span id="successShippingDate"></span></p>
+    <section id="feedbackSection" class="feedback-form">
+      <h3>How was our service?</h3>
+      <div id="feedbackStars" class="star-picker" role="radiogroup" aria-label="Service rating">
+        {% for rating in "12345" %}<button type="button" data-rating="{{ forloop.counter }}" aria-label="{{ forloop.counter }} stars">☆</button>{% endfor %}
+      </div>
+      <textarea id="feedbackReview" rows="3" placeholder="Tell us about your experience (optional)"></textarea>
+      <button id="feedbackButton" class="button" type="button">Submit feedback</button>
+      <p id="feedbackMessage" class="muted" hidden></p>
+    </section>
+    <a class="button secondary-button" href="{% url 'home' %}">Continue shopping</a>
+  </div>
+</div>
+{% if razorpay_key_id %}<script src="https://checkout.razorpay.com/v1/checkout.js"></script>{% endif %}
+<script>
+  const paymentTotal = Number(localStorage.getItem('whoosh_checkout_total') || 0);
+  const paymentTotalEl = document.getElementById('paymentTotal');
+  const paymentError = document.getElementById('paymentError');
+  const payButton = document.getElementById('payButton');
+  const overlay = document.getElementById('successOverlay');
+  const shippingDate = localStorage.getItem('whoosh_checkout_shipping_date');
+  const formatShippingDate = value => value ? new Date(`${value}T00:00:00`).toLocaleDateString(undefined, {day: 'numeric', month: 'long', year: 'numeric'}) : '7 days after your order';
+  document.getElementById('paymentShippingDate').textContent = formatShippingDate(shippingDate);
+  paymentTotalEl.textContent = `₹${paymentTotal.toFixed(2)}`;
+  document.querySelectorAll('input[name="paymentMethod"]').forEach(input => input.addEventListener('change', event => {
+    payButton.textContent = event.target.value === 'cod' ? 'Place order' : 'Pay online';
+  }));
+  const customer = JSON.parse(localStorage.getItem('whoosh_checkout_customer') || '{}');
+  const cart = JSON.parse(localStorage.getItem('whoosh_cart') || '[]');
+  let selectedRating = 0;
+  function showSuccess(orderId, serverShippingDate) {
+    document.getElementById('successOrderId').textContent = orderId || 'Confirmed';
+    document.getElementById('successShippingDate').textContent = formatShippingDate(serverShippingDate || shippingDate);
+    localStorage.removeItem('whoosh_cart');
+    localStorage.removeItem('whoosh_checkout_customer');
+    localStorage.removeItem('whoosh_checkout_total');
+    localStorage.removeItem('whoosh_checkout_shipping_date');
+    overlay.hidden = false;
+  }
+  async function startOnlinePayment() {
+    paymentError.hidden = true;
+    try {
+      const response = await fetch('{% url "razorpay_order" %}', {
+        method: 'POST', headers: {'Content-Type': 'application/json', 'X-CSRFToken': '{{ csrf_token }}'},
+        body: JSON.stringify({amount: paymentTotal.toFixed(2), cart, customer})
+      });
+      const order = await response.json();
+      if (!response.ok) throw new Error(order.error || 'Unable to start payment.');
+      const razorpay = new Razorpay({
+        key: order.key_id, amount: order.amount, currency: 'INR', name: 'Whoosh BabyCo', description: 'Baby care order', order_id: order.order_id,
+        handler: async result => {
+          result.store_order_id = order.store_order_id;
+          const verify = await fetch('{% url "verify_payment" %}', {
+            method: 'POST', headers: {'Content-Type': 'application/json', 'X-CSRFToken': '{{ csrf_token }}'}, body: JSON.stringify(result)
+          });
+          const verification = await verify.json();
+          if (!verify.ok || !verification.success) throw new Error(verification.error || 'Payment verification failed.');
+          showSuccess(order.store_order_id, order.shipping_date);
+        }
+      });
+      razorpay.open();
+    } catch (error) {
+      paymentError.textContent = error.message;
+      paymentError.hidden = false;
+    }
+  }
+  payButton.addEventListener('click', () => {
+    if (!paymentTotal) {
+      paymentError.textContent = 'Your checkout has expired. Please return to your cart.';
+      paymentError.hidden = false;
+      return;
+    }
+    if (document.querySelector('input[name="paymentMethod"]:checked').value === 'cod') {
+      payButton.disabled = true;
+      payButton.textContent = 'Placing order...';
+      fetch('{% url "place_cod_order" %}', {method: 'POST', headers: {'Content-Type': 'application/json', 'X-CSRFToken': '{{ csrf_token }}'}, body: JSON.stringify({cart, customer})})
+        .then(response => response.json().then(data => ({response, data})))
+        .then(({response, data}) => { if (!response.ok) throw new Error(data.error || 'Unable to place order.'); showSuccess(data.order_id, data.shipping_date); })
+        .catch(error => { paymentError.textContent = error.message; paymentError.hidden = false; payButton.disabled = false; payButton.textContent = 'Place order'; });
+    } else startOnlinePayment();
+  });
+  document.querySelectorAll('#feedbackStars button').forEach(button => button.addEventListener('click', () => {
+    selectedRating = Number(button.dataset.rating);
+    document.querySelectorAll('#feedbackStars button').forEach(star => {
+      star.textContent = Number(star.dataset.rating) <= selectedRating ? '★' : '☆';
+    });
+  }));
+  document.getElementById('feedbackButton').addEventListener('click', async () => {
+    const message = document.getElementById('feedbackMessage');
+    if (!selectedRating) {
+      message.textContent = 'Please choose a star rating.';
+      message.hidden = false;
+      return;
+    }
+    const response = await fetch('{% url "submit_feedback" %}', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'X-CSRFToken': '{{ csrf_token }}'},
+      body: JSON.stringify({rating: selectedRating, review: document.getElementById('feedbackReview').value.trim()})
+    });
+    const result = await response.json();
+    message.textContent = response.ok ? 'Thank you for your feedback!' : (result.error || 'Unable to save feedback.');
+    message.hidden = false;
+    if (response.ok) document.getElementById('feedbackButton').disabled = true;
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Whoosh - Products</title>
+  <style>
+    :root{--brand:#0b69a3;--accent:#ff6f61;--ink:#20262b;--muted:#68737d;--line:#e3e8ec;--bg:#f7fafc}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+    header{background:#fff;border-bottom:1px solid var(--line)}
+    nav{max-width:1160px;margin:auto;padding:15px 20px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{color:var(--brand);font-size:24px;font-weight:800;text-decoration:none}
+    .nav-links{display:flex;gap:18px}.nav-links a{color:var(--ink);font-weight:650;text-decoration:none}
+    main{max-width:1160px;margin:auto;padding:42px 20px 60px}
+    .heading{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:26px}
+    h1{margin:0;font-size:40px}.heading p{margin:7px 0 0;color:var(--muted)}
+    .product-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+    .product-card{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+    .product-image{width:100%;aspect-ratio:4/3;object-fit:cover;background:#e9f1f5}
+    .product-content{padding:16px;display:flex;flex-direction:column;flex:1}
+    .product-content h2{font-size:19px;margin:0 0 7px}.description{color:var(--muted);font-size:14px;line-height:1.45;margin:0 0 14px;flex:1}
+    .product-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px}
+    .price-group{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}.price{font-size:18px;font-weight:800}.original-price{color:var(--muted);font-size:13px;text-decoration:line-through}.discount{display:inline-block;color:#188754;background:#e7f6ed;border-radius:4px;padding:3px 6px;font-size:12px;font-weight:800}.add-button{background:var(--brand);color:#fff;border:0;border-radius:7px;padding:10px 13px;font-weight:700;cursor:pointer}
+    .empty{background:#fff;padding:30px;border:1px solid var(--line);border-radius:10px;color:var(--muted)}
+    .modal{display:none;position:fixed;inset:0;background:rgba(10,25,35,.55);align-items:center;justify-content:center;padding:20px;z-index:5}
+    .modal.open{display:flex}.dialog{background:#fff;border-radius:10px;padding:24px;width:min(100%,390px)}
+    .dialog h2{margin:0 0 8px}.dialog p{color:var(--muted);font-size:14px}.dialog input{width:100%;padding:11px;border:1px solid var(--line);border-radius:6px;margin:8px 0}
+    .dialog-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:12px}.dialog button{border:0;border-radius:6px;padding:10px 14px;font-weight:700;cursor:pointer}.cancel{background:#edf1f4}.continue{background:var(--accent);color:#fff}
+    .message{font-size:13px;min-height:18px;color:var(--muted)}
+    @media(max-width:600px){.heading{display:block}h1{font-size:32px}.nav-links{gap:10px;font-size:14px}}
+  </style>
+</head>
+<body>
+  <header><nav><a class="brand" href="whoosh_babyco.html">wHoosH</a><div class="nav-links"><a href="whoosh_babyco.html#categories">Categories</a><a href="cart.html">Cart</a></div></nav></header>
+  <main>
+    <div class="heading"><div><h1 id="categoryTitle">Products</h1><p id="categoryDescription">Shop the latest Whoosh essentials.</p></div></div>
+    <section class="product-grid" id="productGrid" aria-live="polite"></section>
+  </main>
+
+  <div class="modal" id="loginModal" aria-hidden="true">
+    <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+      <h2 id="loginTitle">Log in to add items</h2><p id="loginMessage">Enter your email to continue.</p>
+      <form id="loginForm"><input id="loginEmail" type="email" placeholder="Email address" required autocomplete="username"><input id="loginPassword" type="password" placeholder="Password" autocomplete="current-password" hidden>
+        <div class="dialog-actions"><button type="button" class="cancel" id="cancelLogin">Cancel</button><button type="submit" class="continue" id="continueLogin">Continue</button></div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const products = {
+      soap: {title:'Baby Soaps', description:'Mild cleansing bars for delicate baby skin.', items:[
+        ["Johnson's Baby Soap", 'milk protien , turmeric & shea butter.', 65, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXcF4va0ISooFZe8i_2qQpygI-EWxI3iyEYc_zgIt2Kw&s=10'],
+        ['Himalaya nourishing baby Soap', 'Cleanses and nourishes delicate skin.', 84, 'https://www.clickoncare.com/cdn/shop/files/4_3b591577-9065-4590-b330-735fabd69be9.jpg?v=1716378231'],
+        ['Tedibar', 'For sensitive baby skin.', 177, 'https://m.media-amazon.com/images/I/51eBQyh9OcL.jpg'],
+        ['cetaphill Baby Soap', 'Mild and gentle soap for sensitive skin.', 99, 'https://m.media-amazon.com/images/I/51bFpsWdUPL.jpg']]},
+      shampoo: {title:'Baby Shampoo', description:'Tear-conscious hair and scalp care for little ones.', items:[
+        ["Johnson's Baby Shampoo", 'A gentle wash with aloe vera and vitamin B5.', 125, 'https://images.ctfassets.net/j62l7jj24jl8/39tZXffnAfykKscf9zj3o2/c4cdf5192e9bfc0a239d248d63bc8024/nmt_image_1_new-hi-in'],
+        ['Himalaya Baby Shampoo', 'Hibiscus & Chickpeas for growing hair.', 119, 'https://assets.myntassets.com/h_1440,q_75,w_1080/v1/assets/images/10887208/2020/7/22/ff7eb98b-3d1e-4de9-b75d-c88050bc39071595425866678HimalayaBabyGentleBabyShampoo100Ml1.jpg'],
+        ['Cetaphill Baby Shampoo', 'Natural Chamomile for a comfortable scalp.', 279, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVbwQsqRiZUMQWGK8yjxrHK-zY71iyen-CrUSEVZE7QykdjgA53sY6uQJw&s=10'],
+        ['Mamaearth Baby Shampoo', 'A mild, tear-free formula for daily use.', 199, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH9Ne-OkUX6LBIpCuOTMqxK1Obg8uF9R0NxBA8ChBthQ&s=10']]},
+      oil: {title:'Baby Oils', description:'Massage oils and moisturising care for daily routines.', items:[
+        ["Johnson's Baby Oil", 'A lightweight oil for after-bath massage.', 149, 'https://m.media-amazon.com/images/I/61-7GiP9nvL.jpg'],
+        ['Vircoco coconut Oil', 'A virgin nourishing oil & cold pressed.', 309, 'https://m.media-amazon.com/images/I/41uI59GFFkL.jpg'],
+        ['Himalaya baby Oil', 'A calming addition to a bedtime routine.', 269, 'https://cdn.salla.sa/DGdDlG/16228cd8-1051-43ec-b9c6-6f4dd8f92ec7-1000x1000-kJu0YcTEDtdqCpUWo4UXsUrXMfxaHBEvDSJgH57q.jpg'],
+        ['Mamaearth Baby Oil', 'A gentle, nourishing oil for sensitive skin.', 299, 'https://mamaearth.in/cdn/shop/files/baby_massage_oil_200_ml__1200x1200__i0oy2adtieurwcls.jpg?v=1777969245']]},
+      clothes: {title:'Baby Clothes', description:'Comfort-first clothing for play, rest, and every day.', items:[
+        ['Organic Cotton Romper', '(0-6M)Breathable cotton with easy-change fastening.', 499, 'images/clothes_test.webp'],
+        ['Baby girl Frock', '(0-6M) Pink cotton silk frock.', 649, 'https://picksparrow.com/wp-content/uploads/2025/08/PICKSPARROW-Baby-Girl-Frock-0-6m-baby-pink-.jpeg'],
+        ['Cozy Knit Cardigan', '(0-6M)A warm extra layer for cooler outings.', 549, 'https://images.unsplash.com/photo-1519457431-44ccd64a579b?auto=format&fit=crop&w=800&q=80'],
+        ['Baby Romper', '(0-6M)Comfortable and easy to wear.', 399, 'https://picksparrow.com/wp-content/uploads/2022/01/crochet_patch_romper.png'],
+        ['Customised romper', '(0-6M)Personalised with your baby\'s name.', 599, 'https://www.kayobaby.in/cdn/shop/files/A_db75cde1-c622-435a-8c24-1f361a655dd7.webp?v=1779875443&width=1200']]},
+      toys: {title:'Baby Toys', description:'Thoughtful playthings for discovery and early development.', items:[
+        ['Wooden Stacking Set', 'Simple shapes that encourage sorting and balance.', 449, 'https://storeassets.im-cdn.com/media-manager/channapatnatoysin/oMkclONxQACrWv12tGxu_channapatna-montessori-toys-set-meeran-03_0x0_webp.jpg'],
+        ['Soft Sensory Rattle', 'Easy-to-hold textures for curious little hands.', 299, 'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?auto=format&fit=crop&w=800&q=80'],
+        ['Panda soft toy', 'Soft and delicate furs.', 1299, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy1DuECW6ZLurQNfnyVGZGGGvfxQkrIp180SV4geFmKm7z6bkQBH05y78&s=10'],
+        ['Musical plush toy', 'Playful melodies.', 399, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_UP0pGUg2zQKyCrb9b2uhLcGuCE6WMDcBIZqilZBBtQ&s=10']]},
+      accessories: {title:'Baby Accessories', description:'Useful everyday extras for home and travel.', items:[
+        ['Bamboo Baby Towel', 'Soft absorbent towel for post-bath comfort.', 399, 'https://theoni.in/cdn/shop/articles/Bamboo_Towel_1100x.jpg?v=1720675984'],
+        ['Travel Changing Mat', 'A compact clean surface for changes on the go.', 599, 'https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=800&q=80'],
+        ['Muslin Comfort Cloths', 'A practical three-piece set for daily use.', 349, 'https://images.unsplash.com/photo-1595433707802-6b2626ef1c91?auto=format&fit=crop&w=800&q=80']]}
+    };
+    const params = new URLSearchParams(window.location.search);
+    const categoryKey = params.get('category') || 'soap';
+    const category = products[categoryKey] || products.soap;
+    const grid = document.getElementById('productGrid');
+    document.getElementById('categoryTitle').textContent = category.title;
+    document.getElementById('categoryDescription').textContent = category.description;
+
+    function escapeHtml(value){return String(value).replace(/[&<>'"]/g,(character)=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[character]));}
+    function getPrices(basePrice){
+      const increasedPrice = basePrice * 1.08;
+      return { increasedPrice, salePrice: increasedPrice * 0.95 };
+    }
+    grid.innerHTML = category.items.map((item,index)=>{
+      const prices = getPrices(item[2]);
+      return `<article class="product-card"><img class="product-image" src="${item[3]}" alt="${escapeHtml(item[0])}" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=800&q=85'"><div class="product-content"><h2>${escapeHtml(item[0])}</h2><p class="description">${escapeHtml(item[1])}</p><div class="product-footer"><div class="price-group"><span class="price">₹${prices.salePrice.toFixed(2)}</span><span class="original-price">₹${prices.increasedPrice.toFixed(2)}</span><span class="discount">5% OFF</span></div><button type="button" class="add-button" data-index="${index}">Add to cart</button></div></div></article>`;
+    }).join('');
+
+    function getSession(){try{return JSON.parse(localStorage.getItem('whoosh_logged_in_user')||'null');}catch(error){return null;}}
+    function addToCart(name, price){
+      let items=[]; try{items=JSON.parse(localStorage.getItem('whoosh_cart')||'[]');}catch(error){}
+      if(!Array.isArray(items)) items=[];
+      const existing=items.find((item)=>item.name===name);
+      if(existing) existing.quantity+=1; else items.push({name,price,quantity:1});
+      localStorage.setItem('whoosh_cart',JSON.stringify(items));
+    }
+    let pendingItem=null;
+    const modal=document.getElementById('loginModal'); const form=document.getElementById('loginForm'); const email=document.getElementById('loginEmail'); const password=document.getElementById('loginPassword'); const message=document.getElementById('loginMessage'); const submit=document.getElementById('continueLogin');
+    function openLogin(item){pendingItem=item;modal.classList.add('open');modal.setAttribute('aria-hidden','false');email.focus();}
+    function closeLogin(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');form.reset();password.hidden=true;message.textContent='Enter your email to continue.';submit.textContent='Continue';}
+    document.getElementById('cancelLogin').addEventListener('click',closeLogin);
+    grid.addEventListener('click',(event)=>{const button=event.target.closest('.add-button');if(!button)return;const item=category.items[Number(button.dataset.index)];const session=getSession();const prices=getPrices(item[2]);if(session&&session.email){addToCart(item[0],prices.salePrice);alert(`${item[0]} added to your cart.`);}else openLogin({...item,salePrice:prices.salePrice});});
+    form.addEventListener('submit',async(event)=>{event.preventDefault();const address=email.value.trim().toLowerCase();if(!address)return;try{if(password.hidden){const response=await fetch('http://localhost:8000/api/check-email',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:address})});const result=await response.json();if(!result.exists){window.location.href=`admin/login.html?email=${encodeURIComponent(address)}`;return;}password.hidden=false;submit.textContent='Log in';message.textContent='Enter the password for this email.';return;}const response=await fetch('http://localhost:8000/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:address,password:password.value})});const result=await response.json();if(!response.ok||!result.success)throw new Error(result.message||'Unable to log in.');localStorage.setItem('whoosh_logged_in_user',JSON.stringify({email:address,name:result.name||address}));addToCart(pendingItem[0],pendingItem.salePrice);closeLogin();alert(`${pendingItem[0]} added to your cart.`);}catch(error){message.textContent=error.message;}});
+  </script>
+</body>
+</html>

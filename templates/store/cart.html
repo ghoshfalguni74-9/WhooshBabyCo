@@ -1,0 +1,66 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Cart | Whoosh{% endblock %}
+
+{% block content %}
+<div class="container page-shell">
+  <div class="cart-heading">
+    <div>
+      <p class="eyebrow">WHOOSH BABYCO</p>
+      <h1>Your cart</h1>
+      <p class="muted">Review your items before checkout.</p>
+    </div>
+    <a class="button secondary-button" href="{% url 'home' %}">Continue shopping</a>
+  </div>
+  <div id="cartItems" class="cart-list"></div>
+  <section id="cartSummary" class="cart-summary" hidden>
+    <div><span>Products</span><strong id="totalQuantity">0</strong></div>
+    <div><span>Subtotal</span><strong id="subtotal">₹0.00</strong></div>
+    <div><span>GST (18%)</span><strong id="gst">₹0.00</strong></div>
+    <div class="cart-total"><span>Total amount</span><strong id="grandTotal">₹0.00</strong></div>
+    <a id="proceedToBuy" class="button checkout-button" href="{% url 'checkout' %}">Proceed to buy</a>
+  </section>
+</div>
+<script>
+  const cartKey = 'whoosh_cart';
+  const cartItemsEl = document.getElementById('cartItems');
+  const summaryEl = document.getElementById('cartSummary');
+  const money = value => `₹${value.toFixed(2)}`;
+  const escapeHtml = value => String(value).replace(/[&<>'"]/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char]));
+
+  function changeQuantity(name, change) {
+    const cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
+    const item = cart.find(entry => entry.name === name);
+    if (item) item.quantity += change;
+    localStorage.setItem(cartKey, JSON.stringify(cart.filter(entry => entry.quantity > 0)));
+    renderCart();
+  }
+
+  function renderCart() {
+    const cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
+    if (!cart.length) {
+      cartItemsEl.innerHTML = '<div class="empty"><h2>Your cart is empty</h2><p>Add something lovely for your little one.</p><a class="button" href="{% url 'home' %}">Explore products</a></div>';
+      summaryEl.hidden = true;
+      return;
+    }
+    let totalQuantity = 0;
+    let subtotal = 0;
+    cartItemsEl.innerHTML = cart.map(item => {
+      const quantity = Number(item.quantity) || 1;
+      const price = Number(item.price) || 0;
+      totalQuantity += quantity;
+      subtotal += price * quantity;
+      return `<article class="cart-item"><div class="cart-item-details"><span class="cart-item-label">Baby care essential</span><h2>${escapeHtml(item.name)}</h2><p>${money(price)} each</p></div><div class="cart-item-actions"><div class="quantity-control"><button class="quantity-button" type="button" onclick="changeQuantity('${escapeHtml(item.name)}', -1)">−</button><strong>${quantity}</strong><button class="quantity-button" type="button" onclick="changeQuantity('${escapeHtml(item.name)}', 1)">+</button></div><strong class="line-total">${money(price * quantity)}</strong></div></article>`;
+    }).join('');
+    const gst = subtotal * 0.18;
+    document.getElementById('totalQuantity').textContent = totalQuantity;
+    document.getElementById('subtotal').textContent = money(subtotal);
+    document.getElementById('gst').textContent = money(gst);
+    document.getElementById('grandTotal').textContent = money(subtotal + gst);
+    document.getElementById('proceedToBuy').dataset.total = (subtotal + gst).toFixed(2);
+    summaryEl.hidden = false;
+  }
+
+  renderCart();
+</script>
+{% endblock %}

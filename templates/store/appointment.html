@@ -1,0 +1,56 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Appointment | Whoosh{% endblock %}
+
+{% block content %}
+<div class="container page-shell">
+  <section class="hero appointment-hero">
+    <h1>Pediatric Appointment</h1>
+    <p class="subtitle">Book a consultation with a trusted pediatrician near you.</p>
+  </section>
+
+  <div class="card appointment-card">
+    <form method="post">
+      {% csrf_token %}
+      <div class="grid">
+        <label>
+          Child name
+          <input type="text" name="child_name" placeholder="Enter your child's name" required value="{{ request.POST.child_name }}">
+        </label>
+        <label>
+          Parent name
+          <input type="text" name="parent_name" placeholder="Enter parent name" required value="{{ request.POST.parent_name }}">
+        </label>
+        <label>
+          City
+          <input type="text" name="city" placeholder="Enter city" required value="{{ request.POST.city }}">
+        </label>
+        <label>
+          Check-up type
+          <select name="checkup_type" required>
+            <option value="" disabled {% if not request.POST.checkup_type %}selected{% endif %}>Select check-up type</option>
+            <option value="routine" {% if request.POST.checkup_type == 'routine' %}selected{% endif %}>Routine visit</option>
+            <option value="special" {% if request.POST.checkup_type == 'special' %}selected{% endif %}>Special checkup</option>
+            <option value="vaccination" {% if request.POST.checkup_type == 'vaccination' %}selected{% endif %}>Vaccination</option>
+          </select>
+        </label>
+      </div>
+
+      <button type="submit" class="btn">Show appointment details</button>
+    </form>
+
+    {% if result %}
+      <div class="result-box">
+        <strong>Appointment details</strong>
+        Child: {{ result.child_name }}<br>
+        Parent: {{ result.parent_name }}<br>
+        City: {{ result.city }}<br>
+        Check-up: {{ result.checkup_type }}
+      </div>
+    {% endif %}
+  </div>
+
+  <a class="back" href="{% url 'home' %}">← Return to home</a>
+</div>
+
+{% endblock %}

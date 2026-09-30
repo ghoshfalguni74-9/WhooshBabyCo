@@ -1,0 +1,20 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Verify email | Whoosh{% endblock %}
+
+{% block content %}
+<div class="container page-shell">
+  <div class="login-card">
+    <h1>Verify your email</h1>
+    <p class="muted">We sent a six-digit verification code to {{ email }}.</p>
+    {% if messages %}
+      {% for message in messages %}<div class="message {{ message.tags }}">{{ message }}</div>{% endfor %}
+    {% endif %}
+    <form method="post">
+      {% csrf_token %}
+      <label>Verification code<input name="otp" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" required autofocus></label>
+      <button type="submit" class="button">Verify and create account</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

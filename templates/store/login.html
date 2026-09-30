@@ -1,0 +1,38 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Login | Whoosh{% endblock %}
+
+{% block content %}
+<div class="container page-shell">
+  <div class="login-card">
+    <h1>Login</h1>
+    {% if messages %}
+      {% for message in messages %}
+        <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+    <form method="post">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ next_url }}">
+      <label>
+        Email
+        <input type="email" name="email" placeholder="example@email.com" required>
+      </label>
+      <label>
+        Password
+        <span class="password-field"><input id="loginPassword" type="password" name="password" placeholder="Enter password" required><button type="button" class="password-toggle" data-target="loginPassword" aria-label="Show password">Show</button></span>
+      </label>
+      <button type="submit" class="button">Login</button>
+      <p class="auth-link"><a href="{% url 'signup' %}">Create new account</a></p>
+    </form>
+  </div>
+</div>
+<script>
+  document.querySelectorAll('.password-toggle').forEach(button => button.addEventListener('click', () => {
+    const field = document.getElementById(button.dataset.target);
+    field.type = field.type === 'password' ? 'text' : 'password';
+    button.textContent = field.type === 'password' ? 'Show' : 'Hide';
+    button.setAttribute('aria-label', field.type === 'password' ? 'Show password' : 'Hide password');
+  }));
+</script>
+{% endblock %}

@@ -1,0 +1,5 @@
+pytest
+setuptools
+wheel
+razorpay>=1.4.2
+# TODO: update the necessary requirements to develop this package

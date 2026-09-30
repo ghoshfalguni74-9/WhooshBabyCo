@@ -1,0 +1,116 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Contact | Whoosh{% endblock %}
+
+{% block content %}
+<div class="container page-shell">
+  <div class="support-card contact-page">
+    <section class="company-details">
+      <p class="eyebrow">WHOOSH BABYCO</p>
+      <h1>Customer support</h1>
+      <p>We are here to help with parenting, product advice, and order support around the clock.</p>
+      <div class="company-detail-grid">
+        <div><strong>Company</strong><span>Whoosh BabyCo</span></div>
+        <div><strong>Focus</strong><span>Baby care, wellness, nutrition, and growth support</span></div>
+        <div><strong>Support hours</strong><span>24/7 assistance for all customers</span></div>
+        <div><strong>Email</strong><a href="whooshbabyco@gmail.com">whooshbabyco@gmail.com</a></div>
+      </div>
+    </section>
+
+    <section class="support-form-section">
+      <h2>What our customers say</h2>
+      <div class="feedback-list">
+        {% for review in feedback %}
+          <article class="feedback-item">
+            <strong>{{ review.user.get_full_name|default:review.user.username }}</strong>
+            <span class="feedback-stars" aria-label="{{ review.rating }} out of 5 stars">{% for star in "12345" %}{% if forloop.counter <= review.rating %}★{% else %}☆{% endif %}{% endfor %}</span>
+            {% if review.review %}<p>{{ review.review }}</p>{% endif %}
+          </article>
+        {% empty %}
+          <p class="muted">No customer reviews yet.</p>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="support-chat-section">
+      <h2>24/7 live chat support</h2>
+      <p class="muted">Choose a help topic or type your question below.</p>
+      <div id="chatWindow" class="chat-window" aria-live="polite">
+        <div class="chat-message support-message">Hello! I can help with orders, refunds, products, payments, and general support.</div>
+      </div>
+      <div class="chat-options" aria-label="Common support topics">
+        <button type="button" class="chat-option" data-topic="order">Order help</button>
+        <button type="button" class="chat-option" data-topic="refund">Refund or return</button>
+        <button type="button" class="chat-option" data-topic="product">Product help</button>
+        <button type="button" class="chat-option" data-topic="payment">Payment issue</button>
+        <button type="button" class="chat-option" data-topic="general">General help</button>
+      </div>
+      <form id="chatForm" class="chat-form">
+        <input id="chatInput" type="text" placeholder="Type your message..." aria-label="Type your message" required>
+        <button class="button" type="submit">Send</button>
+      </form>
+    </section>
+
+    <section class="helpline-section">
+      <h2>Customer service</h2>
+      <div class="helpline-grid">
+        <a href="tel:+919641595044">+91 9641595044</a>
+        <a href="tel:+916295298065">+91 6295298065</a>
+        <a href="tel:+916295742306">+91 6295742306</a>
+      </div>
+    </section>
+
+    <section class="support-form-section">
+    {% if submitted %}
+      <div class="result-box"><strong>Message received</strong>Thanks, {{ request.POST.name }}. Our support team will get back to you soon.</div>
+    {% endif %}
+    <form class="support-form" method="post">
+      {% csrf_token %}
+      <div class="grid">
+        <label>Name<input type="text" name="name" required></label>
+      </div>
+      <label>Message<textarea name="message" rows="4" required></textarea></label>
+      <button class="button" type="submit">Send message</button>
+    </form>
+    </section>
+  </div>
+</div>
+<script>
+  const chatReplies = {
+    order: 'For order status or delivery help, keep your order details ready and contact our customer service team.',
+    refund: 'For a refund or return, share your order number and the reason for the request with customer service.',
+    product: 'I can help with product details, ingredients, age recommendations, and baby care guidance.',
+    payment: 'For a payment issue, confirm the amount and payment method, then contact customer service if the issue continues.',
+    general: 'Tell me what you need and I will guide you to the right Whoosh BabyCo support option.'
+  };
+  const chatWindow = document.getElementById('chatWindow');
+  const chatInput = document.getElementById('chatInput');
+  function addChatMessage(text, className) {
+    const message = document.createElement('div');
+    message.className = `chat-message ${className}`;
+    message.textContent = text;
+    chatWindow.appendChild(message);
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+  }
+  function replyFor(text) {
+    const lower = text.toLowerCase();
+    if (lower.includes('order') || lower.includes('delivery')) return chatReplies.order;
+    if (lower.includes('refund') || lower.includes('return')) return chatReplies.refund;
+    if (lower.includes('product') || lower.includes('baby')) return chatReplies.product;
+    if (lower.includes('payment') || lower.includes('pay')) return chatReplies.payment;
+    return chatReplies.general;
+  }
+  document.querySelectorAll('.chat-option').forEach(button => button.addEventListener('click', () => {
+    addChatMessage(button.textContent, 'user-message');
+    window.setTimeout(() => addChatMessage(chatReplies[button.dataset.topic], 'support-message'), 350);
+  }));
+  document.getElementById('chatForm').addEventListener('submit', event => {
+    event.preventDefault();
+    const text = chatInput.value.trim();
+    if (!text) return;
+    addChatMessage(text, 'user-message');
+    chatInput.value = '';
+    window.setTimeout(() => addChatMessage(replyFor(text), 'support-message'), 350);
+  });
+</script>
+{% endblock %}

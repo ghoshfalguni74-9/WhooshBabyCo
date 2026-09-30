@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Whoosh | Customer Care</title>
+  <style>
+    :root {
+      --brand: #0b69a3;
+      --brand-dark: #094b7d;
+      --accent: #ff6f61;
+      --bg: #f5f7fb;
+      --panel: #ffffff;
+      --soft: #eef6ff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --success-bg: #ebf9f1;
+      --success-text: #1d5c3d;
+      --border: #dfe7f2;
+      --shadow: rgba(15, 23, 42, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .topbar {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--brand);
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .logo-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+      color: #fff;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 6px 14px rgba(11,105,163,0.25);
+      font-size: 22px;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1;
+      font-weight: 800;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #333;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 20px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+
+    .nav-links a:hover {
+      background: rgba(0,0,0,0.04);
+    }
+
+    .hero {
+      background: linear-gradient(rgba(11,105,163,0.76), rgba(11,105,163,0.82)),
+                  url('https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+      border-radius: 18px;
+      margin-top: 28px;
+      padding: 32px 24px;
+      color: #fff;
+      box-shadow: 0 16px 34px rgba(11,105,163,0.18);
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: clamp(2rem, 4vw, 3rem);
+    }
+
+    .hero p {
+      margin: 0;
+      font-size: 1.05rem;
+      opacity: 0.96;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 22px;
+      margin: 30px 0;
+    }
+
+    .card {
+      background: var(--panel);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 10px 25px var(--shadow);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      color: var(--brand-dark);
+      font-size: 1.35rem;
+    }
+
+    .info-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 10px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .pill {
+      display: inline-block;
+      background: var(--soft);
+      color: var(--brand-dark);
+      border: 1px solid #d3e8ff;
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .support-list {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0 0;
+      display: grid;
+      gap: 14px;
+    }
+
+    .support-list li {
+      background: #f9fbff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+
+    .support-list a {
+      color: var(--brand-dark);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .chat-box {
+      margin-top: 18px;
+      background: var(--success-bg);
+      border: 1px solid #cbeed8;
+      border-radius: 12px;
+      padding: 16px;
+      color: var(--success-text);
+      display: none;
+    }
+
+    .chat-box.visible {
+      display: block;
+    }
+
+    .chat-window {
+      display: grid;
+      gap: 10px;
+      max-height: 260px;
+      overflow-y: auto;
+      margin-bottom: 12px;
+      padding-right: 4px;
+    }
+
+    .bubble {
+      background: #fff;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #dfeee3;
+      line-height: 1.5;
+      max-width: 90%;
+    }
+
+    .bubble.user {
+      margin-left: auto;
+      background: #eaf4ff;
+      border-color: #d0e6ff;
+    }
+
+    .quick-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0 0 12px;
+    }
+
+    .quick-option {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--brand-dark);
+      cursor: pointer;
+    }
+
+    .chat-form {
+      display: flex;
+      gap: 8px;
+    }
+
+    .chat-form input {
+      flex: 1;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.95rem;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .back {
+      display: inline-block;
+      margin: 10px 0 30px;
+      color: var(--brand);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="container nav">
+      <div class="logo">
+        <span class="logo-badge">!^!</span>
+        <span>Whoosh BabyCo</span>
+      </div>
+      <nav class="nav-links">
+        <a href="whoosh_babyco.html" aria-label="Home">🏠</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="container">
+    <section class="hero">
+      <h1>Customer Care</h1>
+      <p>Support for parents, families, and every little milestone.</p>
+    </section>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Company Details</h2>
+        <ul class="info-list">
+          <li><strong>Company:</strong> Whoosh BabyCo</li>
+          <li><strong>Focus:</strong> Baby care, wellness, nutrition, and growth support</li>
+          <li><strong>Support Hours:</strong> 24/7 assistance for all customers</li>
+          <li><strong>Email:</strong> whooshbabyco@gmail.com</li>
+          <li><strong>Location:</strong> Serving families across West Bengal and beyond</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Customer Support</h2>
+        <span class="pill">Chat Support: 24/7</span>
+        <button type="button" class="btn" id="chatToggle" style="margin-top:16px;">Start chat support</button>
+
+        <div class="chat-box" id="chatBox">
+          <div class="quick-options" id="quickOptions">
+            <button type="button" class="quick-option" data-help="order">Order help</button>
+            <button type="button" class="quick-option" data-help="refund">Refund</button>
+            <button type="button" class="quick-option" data-help="product">Product help</button>
+            <button type="button" class="quick-option" data-help="payment">Payment issue</button>
+            <button type="button" class="quick-option" data-help="help">General help</button>
+          </div>
+          <div class="chat-window" id="chatWindow">
+            <div class="bubble support">
+              Hello! I’m here to help 24/7 with product questions, order support, parenting tips, and service guidance.
+            </div>
+          </div>
+          <form id="chatForm" class="chat-form">
+            <input type="text" id="chatInput" placeholder="Type your message..." aria-label="Type your message" />
+            <button type="submit" class="btn">Send</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>📞 Helpline Numbers</h2>
+        <ul class="support-list">
+          <li><a href="tel:+919641595044">+91 9641595044</a></li>
+          <li><a href="tel:+916295298065">+91 6295298065</a></li>
+          <li><a href="tel:+916295742306">+91 6295742306</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <a class="back" href="whoosh_babyco.html">← Return to home</a>
+  </div>
+
+  <script>
+    const chatToggle = document.getElementById('chatToggle');
+    const chatBox = document.getElementById('chatBox');
+    const chatForm = document.getElementById('chatForm');
+    const chatInput = document.getElementById('chatInput');
+    const chatWindow = document.getElementById('chatWindow');
+    const quickOptions = document.querySelectorAll('.quick-option');
+
+    const quickReplies = {
+      order: 'We can help with order status, shipping questions, and product confirmation. Please share your order details or contact our support team at +91 9641595044.',
+      refund: 'For refunds or returns, please share the order number and issue summary so we can guide you to the right next step.',
+      product: 'We can help with product details, ingredient questions, age recommendations, and care guidance for your baby essentials.',
+      payment: 'For payment issues, please check your payment method and confirm the order amount. If it still fails, contact our support line immediately.',
+      help: 'We are here for any kind of help or query. Tell us what you need and we will guide you to the right support.'
+    };
+
+    function addMessage(text, type) {
+      const msg = document.createElement('div');
+      msg.className = `bubble ${type}`;
+      msg.textContent = text;
+      chatWindow.appendChild(msg);
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    function getReply(message) {
+      const text = message.toLowerCase();
+
+      if (text.includes('order') || text.includes('delivery') || text.includes('shipping')) return quickReplies.order;
+      if (text.includes('refund') || text.includes('return')) return quickReplies.refund;
+      if (text.includes('product') || text.includes('baby') || text.includes('care')) return quickReplies.product;
+      if (text.includes('payment') || text.includes('billing')) return quickReplies.payment;
+      return quickReplies.help;
+    }
+
+    chatToggle.addEventListener('click', function () {
+      chatBox.classList.toggle('visible');
+      chatToggle.textContent = chatBox.classList.contains('visible') ? 'Hide chat support' : 'Start chat support';
+      if (chatBox.classList.contains('visible')) {
+        chatInput.focus();
+      }
+    });
+
+    quickOptions.forEach(button => {
+      button.addEventListener('click', function () {
+        const helpType = button.dataset.help;
+        addMessage(button.textContent, 'user');
+        setTimeout(() => {
+          addMessage(quickReplies[helpType], 'support');
+        }, 400);
+      });
+    });
+
+    chatForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      const text = chatInput.value.trim();
+      if (!text) return;
+
+      addMessage(text, 'user');
+      chatInput.value = '';
+
+      setTimeout(() => {
+        addMessage(getReply(text), 'support');
+      }, 400);
+    });
+  </script>
+</body>
+</html>
