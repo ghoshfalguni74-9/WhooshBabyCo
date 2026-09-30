@@ -13,8 +13,14 @@ def load_env_file(path):
         os.environ.setdefault(key.strip(), value.strip().strip('"\''))
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-load_env_file(BASE_DIR / ".env")
-load_env_file(BASE_DIR / "html.txt_project" / "admin" / ".env")
+
+# Ignore repo-local .env files in hosted deployments. Render and other managed
+# platforms should use real environment variables from the service configuration
+# instead of a checked-in or stale local database URL.
+if not os.environ.get("RENDER"):
+    load_env_file(BASE_DIR / ".env")
+    load_env_file(BASE_DIR / "html.txt_project" / "admin" / ".env")
+
 SITE_ROOT = BASE_DIR / "html.txt_project"
 TEMPLATE_DIR = BASE_DIR / "templates"
 STATIC_DIR = BASE_DIR / "static"
@@ -118,7 +124,9 @@ elif _DB_HOST:
         }
     }
 else:
-    # Local fallback: SQLite
+    # Local fallback: SQLite. This keeps build/test environments working when no
+    # deployment database is configured, and avoids accidentally using a stale
+    # checked-in .env file during Render builds.
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
