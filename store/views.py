@@ -2,8 +2,6 @@ import hashlib
 import hmac
 import json
 import os
-import secrets
-import time
 from datetime import timedelta
 from decimal import Decimal, InvalidOperation
 
@@ -12,7 +10,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import JsonResponse
-from django.core.mail import send_mail
 from django.shortcuts import redirect, render
 from django.conf import settings
 from django.utils import timezone
@@ -370,40 +367,7 @@ def signup(request):
     if request.method == "POST":
         form = UserSignupForm(request.POST)
         if form.is_valid():
-            otp = f"{secrets.randbelow(900000) + 100000}"
-            request.session["pending_signup"] = {
-                "data": form.cleaned_data,
-                "otp": otp,
-                "expires_at": time.time() + 300,
-            }
-            try:
-                send_mail(
-                    "Whoosh BabyCo email verification",
-                    f"Your Whoosh verification code is {otp}. It is valid for 5 minutes.",
-                    settings.DEFAULT_FROM_EMAIL,
-                    [form.cleaned_data["email"]],
-                    fail_silently=False,
-                )
-            except Exception:
-                request.session.pop("pending_signup", None)
-                messages.error(request, "We could not send the verification email. Please try again later.")
-            else:
-                return redirect("verify_signup")
-    return render(request, "store/signup.html", {"form": form, "next_url": next_url})
-
-
-def verify_signup(request):
-    pending = request.session.get("pending_signup")
-    if not pending:
-        messages.error(request, "Your signup session has expired. Please create your account again.")
-        return redirect("signup")
-    if time.time() > pending["expires_at"]:
-        request.session.pop("pending_signup", None)
-        messages.error(request, "That verification code expired. Please create your account again.")
-        return redirect("signup")
-    if request.method == "POST":
-        if secrets.compare_digest(request.POST.get("otp", "").strip(), pending["otp"]):
-            data = pending["data"]
+            data = form.cleaned_data
             user = User.objects.create_user(
                 username=data["email"],
                 email=data["email"],
@@ -412,8 +376,6 @@ def verify_signup(request):
                 last_name=data.get("last_name", ""),
             )
             UserProfile.objects.create(user=user, phone=data.get("phone", ""))
-            request.session.pop("pending_signup", None)
             login(request, user)
             return redirect(request.session.pop("signup_next", "home"))
-        messages.error(request, "Invalid verification code.")
-    return render(request, "store/verify_signup.html", {"email": pending["data"]["email"]})
+    return render(request, "store/signup.html", {"form": form, "next_url": next_url})

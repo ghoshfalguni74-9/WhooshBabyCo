@@ -109,59 +109,11 @@ def get_phone_otp(phone: str):
 
 
 def send_real_email_otp(email: str, otp: str):
-    settings = get_smtp_settings()
-    if not settings["host"] or not settings["from_email"] or not settings["password"]:
-        raise RuntimeError(
-            "SMTP is not configured. Set EMAIL_HOST, EMAIL_PORT, EMAIL_USER, EMAIL_PASSWORD, and EMAIL_FROM in the environment."
-        )
-
-    msg = EmailMessage()
-    msg["Subject"] = "Your verification code"
-    msg["From"] = settings["from_email"]
-    msg["To"] = email
-    msg.set_content(
-        f"Your One-Time Password (OTP) is {otp}. It is valid for 5 minutes."
-    )
-
-    context = ssl.create_default_context()
-    if settings["use_tls"]:
-        with smtplib.SMTP(settings["host"], settings["port"]) as server:
-            server.starttls(context=context)
-            if settings["username"]:
-                server.login(settings["username"], settings["password"])
-            server.send_message(msg)
-        return
-
-    with smtplib.SMTP(settings["host"], settings["port"]) as server:
-        if settings["username"]:
-            server.login(settings["username"], settings["password"])
-        server.send_message(msg)
+    raise RuntimeError("Email OTP service is disabled.")
 
 
 def send_real_phone_otp(phone: str, otp: str):
-    settings = get_sms_settings()
-    if not all(settings.values()):
-        raise RuntimeError(
-            "SMS is not configured. Set TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, and TWILIO_FROM_NUMBER in admin/.env."
-        )
-
-    body = urlencode({
-        "To": phone,
-        "From": settings["from_number"],
-        "Body": f"Your Whoosh verification code is {otp}. It is valid for 5 minutes.",
-    }).encode("utf-8")
-    request = Request(
-        f"https://api.twilio.com/2010-04-01/Accounts/{settings['account_sid']}/Messages.json",
-        data=body,
-        method="POST",
-    )
-    credentials = f"{settings['account_sid']}:{settings['auth_token']}".encode("utf-8")
-    import base64
-    request.add_header("Authorization", f"Basic {base64.b64encode(credentials).decode('ascii')}")
-    request.add_header("Content-Type", "application/x-www-form-urlencoded")
-    with urlopen(request, timeout=20) as response:
-        if response.status >= 300:
-            raise RuntimeError("SMS provider rejected the phone OTP request.")
+    raise RuntimeError("Phone OTP service is disabled.")
 
 
 class AdminRequestHandler(BaseHTTPRequestHandler):
@@ -178,33 +130,8 @@ class AdminRequestHandler(BaseHTTPRequestHandler):
         payload = self.rfile.read(length).decode("utf-8")
 
         if parsed.path == "/api/send-email-otp":
-            try:
-                data = json.loads(payload or "{}")
-                email = (data.get("email") or "").strip()
-                if not email:
-                    self.send_json({"success": False, "message": "Email is required."}, 400)
-                    return
-                otp = generate_otp()
-                store_email_otp(email, otp)
-                settings = get_smtp_settings()
-                smtp_ready = settings["host"] and settings["from_email"] and settings["password"]
-                if smtp_ready:
-                    try:
-                        send_real_email_otp(email, otp)
-                    except Exception:
-                        pass
-                response = {
-                    "success": True,
-                    "message": "OTP sent to your email.",
-                    "developmentOtp": otp,
-                }
-                if not smtp_ready:
-                    response["message"] = "Email service is not configured. Use the development OTP shown below."
-                self.send_json(response, 200)
-                return
-            except Exception as exc:  # pragma: no cover
-                self.send_json({"success": False, "message": str(exc)}, 500)
-                return
+            self.send_json({"success": False, "message": "Email OTP service is disabled."}, 410)
+            return
 
         if parsed.path == "/api/verify-email-otp":
             try:
@@ -226,36 +153,8 @@ class AdminRequestHandler(BaseHTTPRequestHandler):
                 return
 
         if parsed.path == "/api/send-reset-otp":
-            try:
-                data = json.loads(payload or "{}")
-                email = (data.get("email") or "").strip()
-                if not email:
-                    self.send_json({"success": False, "message": "Email is required."}, 400)
-                    return
-                if not user_exists(email):
-                    self.send_json({"success": False, "message": "No account found for this email."}, 404)
-                    return
-                otp = generate_otp()
-                store_email_otp(email, otp)
-                settings = get_smtp_settings()
-                smtp_ready = settings["host"] and settings["from_email"] and settings["password"]
-                if smtp_ready:
-                    try:
-                        send_real_email_otp(email, otp)
-                    except Exception:
-                        pass
-                response = {
-                    "success": True,
-                    "message": "Password reset OTP sent to your email.",
-                    "developmentOtp": otp,
-                }
-                if not smtp_ready:
-                    response["message"] = "Password reset OTP is ready. Use the development OTP shown below."
-                self.send_json(response, 200)
-                return
-            except Exception as exc:  # pragma: no cover
-                self.send_json({"success": False, "message": str(exc)}, 500)
-                return
+            self.send_json({"success": False, "message": "Password reset OTP service is disabled."}, 410)
+            return
 
         if parsed.path == "/api/reset-password":
             try:
@@ -288,20 +187,8 @@ class AdminRequestHandler(BaseHTTPRequestHandler):
                 return
 
         if parsed.path == "/api/send-phone-otp":
-            try:
-                data = json.loads(payload or "{}")
-                phone = (data.get("phone") or "").strip()
-                if not phone:
-                    self.send_json({"success": False, "message": "Phone number is required."}, 400)
-                    return
-                otp = generate_otp()
-                send_real_phone_otp(phone, otp)
-                store_phone_otp(phone, otp)
-                self.send_json({"success": True, "message": "OTP sent to your phone."}, 200)
-                return
-            except Exception as exc:  # pragma: no cover
-                self.send_json({"success": False, "message": str(exc)}, 500)
-                return
+            self.send_json({"success": False, "message": "Phone OTP service is disabled."}, 410)
+            return
 
         if parsed.path == "/api/verify-phone-otp":
             try:
