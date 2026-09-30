@@ -81,7 +81,10 @@ WSGI_APPLICATION = "whoosh_site.wsgi.application"
 ASGI_APPLICATION = "whoosh_site.asgi.application"
 
 DATABASE_URL = os.environ.get("DATABASE_URL")
+_DB_HOST = os.environ.get("DB_HOST", "")
+
 if DATABASE_URL:
+    # Render / production: connection URL takes priority
     try:
         import dj_database_url
         DATABASES = {
@@ -98,13 +101,31 @@ if DATABASE_URL:
                 "NAME": BASE_DIR / "db.sqlite3",
             }
         }
+elif _DB_HOST:
+    # Supabase (or any external Postgres) via individual env vars
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.environ.get("DB_NAME", "postgres"),
+            "USER": os.environ.get("DB_USER", "postgres"),
+            "PASSWORD": os.environ.get("DB_PASSWORD", ""),
+            "HOST": _DB_HOST,
+            "PORT": os.environ.get("DB_PORT", "5432"),
+            "OPTIONS": {
+                "sslmode": "require",
+            },
+            "CONN_MAX_AGE": 600,
+        }
+    }
 else:
+    # Local fallback: SQLite
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
             "NAME": BASE_DIR / "db.sqlite3",
         }
     }
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},

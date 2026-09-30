@@ -1,0 +1,1140 @@
+[
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$dVmH0YqmGjcP6zpaMp55SI$pbzjNM55SAh8K/lBkNANbzmh2EWX5LrEyq/vZqJhxjA=",
+    "last_login": "2026-09-24T12:30:38.110Z",
+    "is_superuser": false,
+    "username": "paulanwesha610@gmail.com",
+    "first_name": "Anwesha",
+    "last_name": "Paul",
+    "email": "paulanwesha610@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-09-24T07:51:45.194Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$RjovAVnDbJI98Vd3gkVYx7$fDHAY8auJLyptPskvI2CaqZuchqUaXum/V9E45XQ2qM=",
+    "last_login": "2026-09-24T13:42:53.104Z",
+    "is_superuser": false,
+    "username": "paultanusree81@gmail.com",
+    "first_name": "Tanusree",
+    "last_name": "Paul",
+    "email": "paultanusree81@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-09-24T08:13:14.861Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$j4ZscxQ56U2jCl37RXbKDl$MMC4ryJ6rh1iwaQMpOSjT/EhWpVYfoscazyJGvveu4s=",
+    "last_login": "2026-09-24T17:55:41.320Z",
+    "is_superuser": false,
+    "username": "ghoshfalguni74@gmail.com",
+    "first_name": "Falguni",
+    "last_name": "Ghosh",
+    "email": "ghoshfalguni74@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-09-24T08:39:23.843Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$nHnLt9MsjnysAUXUWFcsQ7$i0ZqCT/QnTi5SPzBiZ808x02iltz6HbyA8jXZ8oGVpY=",
+    "last_login": "2026-09-24T11:22:43.158Z",
+    "is_superuser": false,
+    "username": "ahinmodak21@gmail.com",
+    "first_name": "Ahin",
+    "last_name": "Modak",
+    "email": "ahinmodak21@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-09-24T11:22:42.085Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$DqBEnKurhuS9jOX67xLJs2$hVKhrkHrIDshPf7wUT94Rn0mQ7Be1wN0+OUTAxGcrYk=",
+    "last_login": "2026-09-24T12:21:16.646Z",
+    "is_superuser": false,
+    "username": "rupammaji0001@gmail.com",
+    "first_name": "Rupam",
+    "last_name": "Maji",
+    "email": "rupammaji0001@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-09-24T12:21:14.371Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$IpUmDGQtN88qHew6WgWeCw$J1ycGZ/Ld6si1xhTx/dre0L/5fMkn1jxZPV5GvnX1ZQ=",
+    "last_login": "2026-09-25T17:27:23.821Z",
+    "is_superuser": false,
+    "username": "satya.goodfriend@gmail.com",
+    "first_name": "Satyabrata",
+    "last_name": "Das",
+    "email": "satya.goodfriend@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-09-25T17:27:20.221Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$po4eJHMj6pGGcXlQR2T2Ff$EI5mLwpQfPRf/H4zkEbTQ0WUDIyMx6CDxsnD8aBbJm8=",
+    "last_login": null,
+    "is_superuser": true,
+    "username": "admin@whoosh.com",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@whoosh.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-09-30T11:28:08.291Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "1dikhup9h74oszj6fs25enhiw55k3qos",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2hBgaAGX7j0DGWZAqoYmpV0Z765NutDtf-_9l4i4rTVuPS9xYnEWRpx-t4T0yG0HfMd2myXNbV2mJHdFHrTL68z5eTncv4OKvX7rjCMqPyCyL5zJJU1gGEYKBQZlCDkHDcFqC0l7BnDFBlc0qQLGkBPvDwawOCk:1x9jiv:Pevc5yIXCbDkavAsgOsdawTnGNcZIQRdAuuK_Vy8yw0",
+    "expire_date": "2026-10-08T13:42:53.117Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "4p4x9kdjlh5n4oodv0z5rcm868sbdahm",
+  "fields": {
+    "session_data": ".eJxdjlsKwjAQRfcy36V0QqpJv3QBrqEMJk2DzYMmRaF07yaICH4N95wLd3aI2ivrzZis8VuEYQdFmeqd7Jry6MlpGOA6Ww8NLPRDt6DoUZh2ZJeSqVRcZQwvprL2HlzxcQ6-9uWJYy_7jvMKKaVnWBUWMdFiNm_pM_E17M8cDYRcHgTBkQusw69oV51GyjDgWXaMyw5li4wLcRxvScxF7Q:1x9hTQ:rgY6tif1iFMa1ZPW1xDkTp67-JVb2_prA3WS70ohhoU",
+    "expire_date": "2026-10-08T11:18:44.934Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "4pgm7lgw68a6m2sdpdup93xbjt51oms7",
+  "fields": {
+    "session_data": ".eJxVjEsOwiAUAO_C2hA-RcCl-56BvMcDqRpISrsy3l1JutDtzGReLMC-lbD3tIaF2IUZdvplCPGR6hB0h3prPLa6rQvykfDDdj43Ss_r0f4NCvQytlKhVBMmJ60XJpukhVUQXVYmniVl5zXI7L2MGREmg9kKT_hNvDbk2PsD1do4Bw:1x9iRw:zoW2HXHNlUyNmsheJMOXU_hBTXaGCK7OQrLklXvp0Go",
+    "expire_date": "2026-10-08T12:21:16.654Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "7aqd13bhwa3r86trg3q8edv4vehss89z",
+  "fields": {
+    "session_data": ".eJxtjj0LwjAURf_Lm4s0NWmbTrqICDoI4lhebWyDzQdNpIXS_24y6eD0uOdceHcBK3QrdVc72em3hWqBFj3G-5Sj87VGJaCCfS81JDDgF51Ni6_AhEI5hIyhoiLLyK6LbPMwKnjbGx37PKeEcZZSGiE6N5mxJUHc8uYyTcfr3IjD6c5_bPbHrgkYH4ZCWXDCt3HAbOUoXI0eKlLwNKMlZ8WGsvAvp-v6AcLSR6A:1x9hSQ:shjeYJlnRUQaExjNczOh8XABwAr7DhZINPO9XW04GNQ",
+    "expire_date": "2026-10-08T11:17:42.719Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "9f8rasifm7y19hx12cfe08f5aixoqcsh",
+  "fields": {
+    "session_data": ".eJxtjr0KwjAURt_lzkWamEbTSRcRQQdBHMutjW2w-aGJtFD67iaTDk6Xe84ZvhmcNI0ybeVVa94OyhkaDJjuUw0-VAa1hBL2nTKQQY9fdLYNviKTGlUff4yJToySXZvY6mF19K6zJvWCM1KIImcsQfR-tENDorjx-jKOx-tUy8PpLn4s_WOXDGyIQ4GvCSU8DZicGqSvMEBJNiKnbCt4vqIxEGxZPnjWR1Q:1x9hST:Jz9MNJ1SOI5eTkw50hxWogXqdnJI-50N18yBEC7CDOE",
+    "expire_date": "2026-10-08T11:17:45.176Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "bjgwy9kgf7o4v5izzkj8um22sk9q531u",
+  "fields": {
+    "session_data": ".eJxdjlsKwyAQRfcy36GoNTHmq11A1xCGaow0PoiGFkL2XqWUQr-Ge86FOztE7ZX1ZkzW-C3CsIPCjPVOdk159Og0DHCdrYcGFvyhW1D4KEw7tEvJWCquMkYvprLTPbji4xx87cuO01a2hPMKMaVnWBUtYsLFbN7iZ-Jr2J85Ggi5PAh9x4To6_Ar2lWnETMMVEjCuCRUnpigZyLEcbwB1slGXQ:1x9hTU:Y2j8Kkpo3SeUPuuvGFyAAYBo95QjV2HCYo9TtXP2viw",
+    "expire_date": "2026-10-08T11:18:48.055Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "c9s7ie1ssanyebay6k4chsd9szbn3sff",
+  "fields": {
+    "session_data": ".eJxdjlsKgzAQRfcy3yJOjNb41S6ga5ChSWOoeWAiLYh7b0IphX4N95wLd3YIyknj9BSNdluAcQdJicq9mzWmyZFVMMJlNg4qWOiHrl7SIzNlySw5U67YwhiedWH1zdvsw-xd6YueYye6hvMCKcanXyVmcadFb87QZ-Jr2J85KvApPwh8YKLFMvwKZlVxogQjnkTDuGhQ1EPfMhyO4w2PokYj:1x9hTV:-vgcTRIJWkAkEBdMgcJ6Xihxj7dPeKtYBOGc1X8EXpM",
+    "expire_date": "2026-10-08T11:18:49.652Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "d4n82ie5wzc26nd92lk739t58qp9kh52",
+  "fields": {
+    "session_data": ".eJxVjDEOwjAMRe-SGUWiiZOYkZ0zRLZjSAGlUtNOiLtDpQ6w_vfef5lM61Lz2nXOYzEn48zhd2OSh7YNlDu122Rlass8st0Uu9NuL1PR53l3_w4q9fqtE4eCCnBUCN5FIUqM7HBwhZQcCl5TAOEkKCEUiRzJ6eATePAhefP-APQWN_s:1x9nfZ:pUILmUdM7kNPtMRYOBji-YigT4bStA9E14BIF8uUSwM",
+    "expire_date": "2026-10-08T17:55:41.357Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "fm33famaib5wwg5mjnrh4offlbngkxcj",
+  "fields": {
+    "session_data": ".eJxdjVsKwyAQRfcy3yFoqk3MV7uAriEM1RhpfKCGFkL2XqWUQr-Ge85l7g5BOWmcnpLRbgsw7iAxY72ziSlPDq2CEa6LcdDAij908xIfhSmLZi0ZS8VW1tGLrqy9e1t8WLyrfXFmlAtOGKsQU3r6KGkRM656cwY_E1_T_ZmjAZ9D_cOHYeB1-BVMVGnCDCPtBemYIFS0_Yn1hLPjeAPXvEZl:1x9hTR:eDdOBI230y7og1bpai9hdvxh8xe213ZEAD2oD0aXPaQ",
+    "expire_date": "2026-10-08T11:18:45.375Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "gcm2jm1nneth2q1vloq1k89sie4tb4af",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSE8pA4u3fcbyMAMUjWQlHZl_HfbpAvdnnPufYuA61LC2nkOE4mr0OL0yyKmJ9dd0APrvcnU6jJPUe6JPGyXYyN-3Y7276BgL9saIrHyrMAndkzMeXCGLt5BtJAjZGOtN4Y3iOTR8aDz2XmlnQHEbMTnCwKwOE0:1x9iJm:qFBZMbaEpu9W5_n8Io8rVc-lwFG3Rn8fbwhGqUAkV9g",
+    "expire_date": "2026-10-08T12:12:50.577Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "h7z9nim5e36r8dkyx0v2xrrebfy90w4q",
+  "fields": {
+    "session_data": ".eJxtjD0LwjAURf_Lm4s0tYlNJ11EBB0EcSyvNrbB5oMm0kLpfzdx0cHpcs-53Bms0I3UbeVkq18Wyhka9BjzIQfnK41KQAm7TmpIoMcvOpkGn4EJhbIPHcNERZaRbRvZ6m5U8LYzOu45ywnlNM3zCNG50QwNCeLK6vM4Hi5TLfbHG_-x2R-7JGC8_fwRlsYvMVk5CFehh5JseJrlBad8lRZryopleQN6Tkdo:1x9hSR:n6PrruoTlgPSiAMnTIO5IHsE84oTpIGWaGnGcesDQgM",
+    "expire_date": "2026-10-08T11:17:43.961Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "hny54futj9yw0c4enyeb749gto8asd76",
+  "fields": {
+    "session_data": ".eJxdjlsKgzAQRfcy3yJJjNb4VRfQNcjQxBhqHphIC-Lem1BKoV_DPefCnQOCctI4PUWj3R5gOEBiwnJns8U0ObQKBhgX46CCFX_o5iU-MlMWzZoz5ootjNGrLqy-e5t9WLwrfdFx2oqWcF4gxvj0m6RZzLjq3Rn8THwN-zNnBT7lB6FvCGGkDL-C2VScMMFAL4IwLght66braUf5eb4B0xdGQg:1x9hTM:TKkQu4TFIwkGRae0Pj7XnEf4PcwmJQAOPzfueBq4Zg8",
+    "expire_date": "2026-10-08T11:18:40.155Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "j1mf2gyb7lwjsajh7ku0jfwhxdqzhqvw",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSE8pA4u3fcbyMAMUjWQlHZl_HfbpAvdnnPufYuA61LC2nkOE4mr0OL0yyKmJ9dd0APrvcnU6jJPUe6JPGyXYyN-3Y7276BgL9saIrHyrMAndkzMeXCGLt5BtJAjZGOtN4Y3iOTR8aDz2XmlnQHEbMTnCwKwOE0:1x9iat:hZSsSzMhWDReRyvQl3XGVQPeV51Bza-GuQlvSRUkUBQ",
+    "expire_date": "2026-10-08T12:30:31.590Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "ke9cupflqy9985nusil24nw9axe8sjub",
+  "fields": {
+    "session_data": ".eJxdjlsKwyAQRfcy3yGoNQ_z1SygawhDNUYaH0RDCyF7r1JKoV_DPefCnQOCctI4PUWj3R5gOEBiwnJns8U0ObQKBhgX46CCFX_o5iU-MlMWzZoz5ootjNGrLqy-e5t9WLwrfdFy2oiGcF4gxvj0m6RZzLjq3Rn8THwN-zNnBT7lB4HRCxNtGX4Fs6k4YYKBdoIwLgjt67YXjHTn-QaO_EYi:1x9hTS:KI15zvng7F66EE7JS6S0US6hE4ji7Z2ZIwGfJRiWeI0",
+    "expire_date": "2026-10-08T11:18:46.214Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "lnitwb28myq9sytlj08rwwvm6e2ktvcd",
+  "fields": {
+    "session_data": ".eJxdjlsKgzAQRfcy3yImjdXxq11A1yBDE2OoeWAiLYh7b0IphX4N95wLd3YIyknj9BiNdluAYQdJicqdzBrT6MgqGOA6GwcVLPRDNy_pkZmyZJacKVdsYZxddGH13dvsw-xd6eNZsBbbRogCKcanXyXLYqJFb87QZ-Jr-J85KvApPwg94ol3ZfgVzKriSAkG1mHDBTaM1dgLwVl7HG_W00Zb:1x9hTK:4eXK4xIHQMDVXOa-nhxf2Af4WkfJgtGoAzaYwoZNWzQ",
+    "expire_date": "2026-10-08T11:18:38.156Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "mv8kacg5gmefs8oty278yo5jd9ev19f0",
+  "fields": {
+    "session_data": ".eJxVjDEOwjAMRe-SGUWiiZOYkZ0zRLZjSAGlUtNOiLtDpQ6w_vfef5lM61Lz2nXOYzEn48zhd2OSh7YNlDu122Rlass8st0Uu9NuL1PR53l3_w4q9fqtE4eCCnBUCN5FIUqM7HBwhZQcCl5TAOEkKCEUiRzJ6eATePAhefP-APQWN_s:1x9ezG:9PWdicRUyifmcAsCJc1SNZlo59c3EtSQZp8itzpAY98",
+    "expire_date": "2026-10-08T08:39:26.724Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "n1go9zpfxiw7y3g2yu772gjobseek93u",
+  "fields": {
+    "session_data": ".eJxtjrEKwjAURf_lzUWSNq1JJ11EBB0EcSyvNrbBNglNpIXSfzeZdHB63HMul7eAlbpRuq2cavXbQrlAgx7jfarR-UrjIKGEfac0JNDjF51Ng6_A5ICqDxlDZYgspbs2ss3DDMHbzujYFwWjucgJYxGic5MZGxrEragv03S8zrU8nO7ix6Z_7JqA8TbukYxTHh-YrRqlq9BDSbeCpIyLgmx4ngoisnX9AMGER5k:1x9hSU:O679XcbPaRsdoH-FsgP5eAguzmfRQDkVsIaeonWeMTA",
+    "expire_date": "2026-10-08T11:17:46.168Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "npgrcye4zsda64pafc9xu0spc91wmk32",
+  "fields": {
+    "session_data": ".eJxdjlsKgzAQRfcy3yJJjNr4VRfQNcjQxBhqHphIC-Lem1BKoV_DPefCnQOCctI4PUWj3R5gOEBiwnJns8U0ObQKBhgX46CCFX_o5iU-MlMWzZoz5ootjNGrLqy-e5t9WLwrfdFx2oqWcF4gxvj0m6RZzLjq3Rn8THwN-zNnBT7lB6HhtGeXMvwKZlNxwgQD7QVhXBAqakIaxrvmPN_UjkZH:1x9hTQ:Zm3Y4F3N2D_oEl5N-4yYx2riEtkKJkEU6Gn4_P_krdE",
+    "expire_date": "2026-10-08T11:18:44.588Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "nwuj36um7irkb4p4z1fawz3yinf2a8ed",
+  "fields": {
+    "session_data": ".eJxtjrEOgjAURf_lzcRQbAtl0sUYEx1MjCN5SIVG2hJaAwnh320nHZxu7jl3uAsM0jTKtJVTrXkPUC7QoMeYTzU6XxnUEkrYd8pAAj1-0dk2-ApMalR96BgmOrKM7NrINg-rgx86a-JecEqYYCmlEaJzkx0bEsSN15dpOl7nWh5Od_Fjsz92TcD6cBS2WcEYiwfmQY3SVeihJLlIM1oITjYk5yJP2bp-AMFUR5g:1x9hSU:pFJhO-ZV9oY4k6jKE8OpyzMNpF_10fstQedgFELz2Pw",
+    "expire_date": "2026-10-08T11:17:46.596Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "rlg39nbf29bexjc92yxnkxnrmdrxa62p",
+  "fields": {
+    "session_data": ".eJxVjEsOwjAMBe-SNYoSHLuEJXvOELl2QgsokfpZIe4OlbqA7ZuZ9zKJ12VI65ynNKo5m2AOv1vP8sh1A3rnemtWWl2msbebYnc622vT_Lzs7t_BwPPwrUkI3UkgOHbRFyKWHkpAr9xlh-gJjkqqIsIiCBwiEhTwHRZXumjeH9yiN8s:1x9hXH:GEUZHHKV5qzkirBQwPyIUwE0a8C05zSwd0ps-Xjsmec",
+    "expire_date": "2026-10-08T11:22:43.173Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "wkwe85urea9gxy1hwjrcie59id12ccwn",
+  "fields": {
+    "session_data": ".eJxdjlsKwyAQRfcy36GoNSbmq11A1xCGaow0PoiGFkL2XqWUQr-Ge86FOztE7ZX1ZkzW-C3CsIPCjPVOdk159Og0DHCdrYcGFvyhW1D4KEw7tEvJWCquMkYvprLTPbji4xx87UvBaStbwnmFmNIzrIoWMeFiNm_xM_E17M8cDYRcHgTRt0KyOvyKdtVpxAwD7SRhXBLan85EdFwcxxuQxUYp:1x9hTP:3qljl4ZDCrRERAeeL7VmAmfMBLW0ZbklUM4FUlN7LhY",
+    "expire_date": "2026-10-08T11:18:43.354Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "zo9bvh7kbk527q2xontifrlhulih8mpu",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSE8pA4u3fcbyMAMUjWQlHZl_HfbpAvdnnPufYuA61LC2nkOE4mr0OL0yyKmJ9dd0APrvcnU6jJPUe6JPGyXYyN-3Y7276BgL9saIrHyrMAndkzMeXCGLt5BtJAjZGOtN4Y3iOTR8aDz2XmlnQHEbMTnCwKwOE0:1x9iav:p_OBbG-iRPXPXVY8Bkin5mdYp93i45zmpYJFtFUVbaY",
+    "expire_date": "2026-10-08T12:30:33.723Z"
+  }
+},
+{
+  "model": "store.category",
+  "pk": 1,
+  "fields": {
+    "name": "Soap",
+    "slug": "soap",
+    "description": "Gentle cleansing bars for delicate baby skin."
+  }
+},
+{
+  "model": "store.category",
+  "pk": 2,
+  "fields": {
+    "name": "Shampoo",
+    "slug": "shampoo",
+    "description": "Tear-free hair care for little ones."
+  }
+},
+{
+  "model": "store.category",
+  "pk": 3,
+  "fields": {
+    "name": "Oil",
+    "slug": "oil",
+    "description": "Daily massage oils and nourishing care."
+  }
+},
+{
+  "model": "store.category",
+  "pk": 4,
+  "fields": {
+    "name": "Clothes",
+    "slug": "clothes",
+    "description": "Comfort-first essentials for everyday wear."
+  }
+},
+{
+  "model": "store.category",
+  "pk": 5,
+  "fields": {
+    "name": "Toys",
+    "slug": "toys",
+    "description": "Safe and playful learning tools for babies."
+  }
+},
+{
+  "model": "store.category",
+  "pk": 6,
+  "fields": {
+    "name": "Accessories",
+    "slug": "accessories",
+    "description": "Useful everyday extras for home and travel."
+  }
+},
+{
+  "model": "store.product",
+  "pk": 1,
+  "fields": {
+    "category": 1,
+    "name": "Johnson's Baby Soap",
+    "slug": "johnsons-baby-soap",
+    "product_code": "WB-BAE306E8CD",
+    "description": "Mild cleansing bar for delicate skin.",
+    "price": "65.00",
+    "discount_percent": 15,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXcF4va0ISooFZe8i_2qQpygI-EWxI3iyEYc_zgIt2Kw&s=10",
+    "is_featured": true,
+    "rating": 3,
+    "created_at": "2026-09-22T09:39:43.684Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 2,
+  "fields": {
+    "category": 1,
+    "name": "Himalaya Nourishing Baby Soap",
+    "slug": "himalaya-nourishing-baby-soap",
+    "product_code": "WB-2F0EB336A4",
+    "description": "Cleanses and nourishes delicate skin.",
+    "price": "84.00",
+    "discount_percent": 15,
+    "image": "https://www.clickoncare.com/cdn/shop/files/4_3b591577-9065-4590-b330-735fabd69be9.jpg?v=1716378231",
+    "is_featured": true,
+    "rating": 3,
+    "created_at": "2026-09-22T09:39:43.862Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 3,
+  "fields": {
+    "category": 1,
+    "name": "Cetaphil Baby Soap",
+    "slug": "cetaphil-baby-soap",
+    "product_code": "WB-1ED605CBBB",
+    "description": "Mild and gentle soap for sensitive skin.",
+    "price": "99.00",
+    "discount_percent": 15,
+    "image": "https://m.media-amazon.com/images/I/51bFpsWdUPL.jpg",
+    "is_featured": false,
+    "rating": 4,
+    "created_at": "2026-09-22T09:39:44.212Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 4,
+  "fields": {
+    "category": 2,
+    "name": "Johnson's Baby Shampoo",
+    "slug": "johnsons-baby-shampoo",
+    "product_code": "WB-9E234593C9",
+    "description": "A gentle wash with aloe vera and vitamin B5.",
+    "price": "125.00",
+    "discount_percent": 15,
+    "image": "https://images.ctfassets.net/j62l7jj24jl8/39tZXffnAfykKscf9zj3o2/c4cdf5192e9bfc0a239d248d63bc8024/nmt_image_1_new-hi-in",
+    "is_featured": true,
+    "rating": 3,
+    "created_at": "2026-09-22T09:39:44.573Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 5,
+  "fields": {
+    "category": 2,
+    "name": "Himalaya Baby Shampoo",
+    "slug": "himalaya-baby-shampoo",
+    "product_code": "WB-C648A357CA",
+    "description": "Hibiscus & Chickpeas for growing hair.",
+    "price": "119.00",
+    "discount_percent": 15,
+    "image": "https://assets.myntassets.com/h_1440,q_75,w_1080/v1/assets/images/10887208/2020/7/22/ff7eb98b-3d1e-4de9-b75d-c88050bc39071595425866678HimalayaBabyGentleBabyShampoo100Ml1.jpg",
+    "is_featured": true,
+    "rating": 3,
+    "created_at": "2026-09-22T09:39:44.773Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 6,
+  "fields": {
+    "category": 2,
+    "name": "Cetaphil Baby Shampoo",
+    "slug": "cetaphil-baby-shampoo",
+    "product_code": "WB-E8CB2E62F7",
+    "description": "Natural Chamomile for a comfortable scalp.",
+    "price": "279.00",
+    "discount_percent": 15,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVbwQsqRiZUMQWGK8yjxrHK-zY71iyen-CrUSEVZE7QykdjgA53sY6uQJw&s=10",
+    "is_featured": false,
+    "rating": 4,
+    "created_at": "2026-09-22T09:39:44.914Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 7,
+  "fields": {
+    "category": 3,
+    "name": "Johnson's Baby Oil",
+    "slug": "johnsons-baby-oil",
+    "product_code": "WB-8A8D64DE7E",
+    "description": "A lightweight oil for after-bath massage.",
+    "price": "149.00",
+    "discount_percent": 15,
+    "image": "https://m.media-amazon.com/images/I/61-7GiP9nvL.jpg",
+    "is_featured": true,
+    "rating": 3,
+    "created_at": "2026-09-22T09:39:45.178Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 8,
+  "fields": {
+    "category": 3,
+    "name": "Vircoco Coconut Oil",
+    "slug": "vircoco-coconut-oil",
+    "product_code": "WB-84E24C54A6",
+    "description": "A virgin nourishing oil & cold pressed.",
+    "price": "309.00",
+    "discount_percent": 15,
+    "image": "https://m.media-amazon.com/images/I/41uI59GFFkL.jpg",
+    "is_featured": true,
+    "rating": 3,
+    "created_at": "2026-09-22T09:39:45.505Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 9,
+  "fields": {
+    "category": 3,
+    "name": "Himalaya Baby Oil",
+    "slug": "himalaya-baby-oil",
+    "product_code": "WB-6596F50771",
+    "description": "A calming addition to a bedtime routine.",
+    "price": "269.00",
+    "discount_percent": 15,
+    "image": "https://cdn.salla.sa/DGdDlG/16228cd8-1051-43ec-b9c6-6f4dd8f92ec7-1000x1000-kJu0YcTEDtdqCpUWo4UXsUrXMfxaHBEvDSJgH57q.jpg",
+    "is_featured": false,
+    "rating": 3,
+    "created_at": "2026-09-22T09:39:45.957Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 10,
+  "fields": {
+    "category": 4,
+    "name": "Organic Cotton Romper",
+    "slug": "organic-cotton-romper",
+    "product_code": "WB-FD896369B0",
+    "description": "Breathable cotton with easy-change fastening.",
+    "price": "499.00",
+    "discount_percent": 15,
+    "image": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=500&q=80",
+    "is_featured": true,
+    "rating": 3,
+    "created_at": "2026-09-22T09:39:46.980Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 11,
+  "fields": {
+    "category": 4,
+    "name": "Soft Knitted Bodysuit",
+    "slug": "soft-knitted-bodysuit",
+    "product_code": "WB-48FF240666",
+    "description": "Warm, easy to wear comfort for all-day play.",
+    "price": "420.00",
+    "discount_percent": 15,
+    "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=80",
+    "is_featured": false,
+    "rating": 3,
+    "created_at": "2026-09-22T09:39:47.137Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 12,
+  "fields": {
+    "category": 5,
+    "name": "Wooden Stacking Set",
+    "slug": "wooden-stacking-set",
+    "product_code": "WB-73EDA5F139",
+    "description": "Simple shapes encouraging sorting and balance.",
+    "price": "449.00",
+    "discount_percent": 15,
+    "image": "https://storeassets.im-cdn.com/media-manager/channapatnatoysin/oMkclONxQACrWv12tGxu_channapatna-montessori-toys-set-meeran-03_0x0_webp.jpg",
+    "is_featured": true,
+    "rating": 3,
+    "created_at": "2026-09-22T09:39:47.641Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 13,
+  "fields": {
+    "category": 5,
+    "name": "Soft Rattle Balls",
+    "slug": "soft-rattle-balls",
+    "product_code": "WB-EC798542DB",
+    "description": "A fun sensory toy for tiny hands.",
+    "price": "299.00",
+    "discount_percent": 15,
+    "image": "https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=500&q=80",
+    "is_featured": false,
+    "rating": 3,
+    "created_at": "2026-09-22T09:39:47.825Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 14,
+  "fields": {
+    "category": 6,
+    "name": "Baby Bottle Warmer",
+    "slug": "baby-bottle-warmer",
+    "product_code": "WB-1C8F087F7A",
+    "description": "Keeps feeds warm and ready to use.",
+    "price": "699.00",
+    "discount_percent": 15,
+    "image": "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=500&q=80",
+    "is_featured": true,
+    "rating": 3,
+    "created_at": "2026-09-22T09:39:48.265Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 15,
+  "fields": {
+    "category": 6,
+    "name": "Travel Diaper Bag",
+    "slug": "travel-diaper-bag",
+    "product_code": "WB-FDA9BD035C",
+    "description": "A practical carry-all for daily outings.",
+    "price": "899.00",
+    "discount_percent": 15,
+    "image": "https://images.unsplash.com/photo-1528740561666-dc2479dc08ab?auto=format&fit=crop&w=500&q=80",
+    "is_featured": false,
+    "rating": 4,
+    "created_at": "2026-09-22T09:39:48.566Z"
+  }
+},
+{
+  "model": "store.userprofile",
+  "pk": 1,
+  "fields": {
+    "user": [
+      "paulanwesha610@gmail.com"
+    ],
+    "phone": "7797171123",
+    "city": "durgapur",
+    "district": "durgapur",
+    "country": "India",
+    "address": "M.A.M.C ,B2 ,V.K.nagar"
+  }
+},
+{
+  "model": "store.userprofile",
+  "pk": 2,
+  "fields": {
+    "user": [
+      "paultanusree81@gmail.com"
+    ],
+    "phone": "7001509978",
+    "city": "",
+    "district": "",
+    "country": "",
+    "address": ""
+  }
+},
+{
+  "model": "store.userprofile",
+  "pk": 3,
+  "fields": {
+    "user": [
+      "ghoshfalguni74@gmail.com"
+    ],
+    "phone": "6295298065",
+    "city": "",
+    "district": "",
+    "country": "",
+    "address": ""
+  }
+},
+{
+  "model": "store.userprofile",
+  "pk": 4,
+  "fields": {
+    "user": [
+      "ahinmodak21@gmail.com"
+    ],
+    "phone": "9641595044",
+    "city": "",
+    "district": "",
+    "country": "",
+    "address": ""
+  }
+},
+{
+  "model": "store.userprofile",
+  "pk": 5,
+  "fields": {
+    "user": [
+      "rupammaji0001@gmail.com"
+    ],
+    "phone": "8944968262",
+    "city": "",
+    "district": "",
+    "country": "",
+    "address": ""
+  }
+},
+{
+  "model": "store.userprofile",
+  "pk": 6,
+  "fields": {
+    "user": [
+      "satya.goodfriend@gmail.com"
+    ],
+    "phone": "9476133893",
+    "city": "",
+    "district": "",
+    "country": "",
+    "address": ""
+  }
+},
+{
+  "model": "store.order",
+  "pk": 1,
+  "fields": {
+    "order_id": "WB-5AF203ED7A624E",
+    "user": [
+      "ghoshfalguni74@gmail.com"
+    ],
+    "customer_name": "Falguni Ghosh",
+    "customer_phone": "6295298065",
+    "customer_address": "bamunara",
+    "payment_method": "online",
+    "status": "paid",
+    "subtotal": "279.00",
+    "first_order_discount": "41.85",
+    "gst": "42.69",
+    "donation_amount": "0.00",
+    "total": "279.84",
+    "shipping_date": "2026-09-24",
+    "created_at": "2026-09-24T08:40:38.150Z"
+  }
+},
+{
+  "model": "store.order",
+  "pk": 2,
+  "fields": {
+    "order_id": "WB-F28C8DE29CCB46",
+    "user": [
+      "ghoshfalguni74@gmail.com"
+    ],
+    "customer_name": "Falguni Ghosh",
+    "customer_phone": "6295298065",
+    "customer_address": "Bamunara, Durgapur",
+    "payment_method": "online",
+    "status": "paid",
+    "subtotal": "65.00",
+    "first_order_discount": "0.00",
+    "gst": "11.70",
+    "donation_amount": "0.00",
+    "total": "76.70",
+    "shipping_date": "2026-09-24",
+    "created_at": "2026-09-24T12:14:17.114Z"
+  }
+},
+{
+  "model": "store.order",
+  "pk": 3,
+  "fields": {
+    "order_id": "WB-E218A962FBE44E",
+    "user": [
+      "paulanwesha610@gmail.com"
+    ],
+    "customer_name": "Anwesha Paul",
+    "customer_phone": "7797171123",
+    "customer_address": "M.A.M.C ,B2 ,V.K.nagar",
+    "payment_method": "online",
+    "status": "pending",
+    "subtotal": "378.00",
+    "first_order_discount": "56.70",
+    "gst": "57.83",
+    "donation_amount": "0.00",
+    "total": "379.13",
+    "shipping_date": "2026-10-01",
+    "created_at": "2026-09-24T17:09:00.447Z"
+  }
+},
+{
+  "model": "store.order",
+  "pk": 4,
+  "fields": {
+    "order_id": "WB-BBC220257AE34F",
+    "user": [
+      "paulanwesha610@gmail.com"
+    ],
+    "customer_name": "Anwesha Paul",
+    "customer_phone": "7797171123",
+    "customer_address": "M.A.M.C ,B2 ,V.K.nagar",
+    "payment_method": "online",
+    "status": "paid",
+    "subtotal": "378.00",
+    "first_order_discount": "56.70",
+    "gst": "57.83",
+    "donation_amount": "0.00",
+    "total": "379.13",
+    "shipping_date": "2026-10-01",
+    "created_at": "2026-09-24T17:09:07.427Z"
+  }
+},
+{
+  "model": "store.order",
+  "pk": 5,
+  "fields": {
+    "order_id": "WB-65614DF68B704B",
+    "user": [
+      "paulanwesha610@gmail.com"
+    ],
+    "customer_name": "Anwesha Paul",
+    "customer_phone": "7797171123",
+    "customer_address": "M.A.M.C ,B2 ,V.K.nagar",
+    "payment_method": "online",
+    "status": "pending",
+    "subtotal": "84.00",
+    "first_order_discount": "0.00",
+    "gst": "15.12",
+    "donation_amount": "0.00",
+    "total": "99.12",
+    "shipping_date": "2026-10-01",
+    "created_at": "2026-09-24T18:09:12.797Z"
+  }
+},
+{
+  "model": "store.order",
+  "pk": 6,
+  "fields": {
+    "order_id": "WB-2C69EE2A288644",
+    "user": [
+      "paulanwesha610@gmail.com"
+    ],
+    "customer_name": "Anwesha Paul",
+    "customer_phone": "7797171123",
+    "customer_address": "M.A.M.C ,B2 ,V.K.nagar",
+    "payment_method": "online",
+    "status": "pending",
+    "subtotal": "84.00",
+    "first_order_discount": "0.00",
+    "gst": "15.12",
+    "donation_amount": "0.00",
+    "total": "99.12",
+    "shipping_date": "2026-10-01",
+    "created_at": "2026-09-24T18:09:17.581Z"
+  }
+},
+{
+  "model": "store.order",
+  "pk": 7,
+  "fields": {
+    "order_id": "WB-00318661AFF14F",
+    "user": [
+      "paulanwesha610@gmail.com"
+    ],
+    "customer_name": "Anwesha Paul",
+    "customer_phone": "7797171123",
+    "customer_address": "M.A.M.C ,B2 ,V.K.nagar",
+    "payment_method": "cod",
+    "status": "placed",
+    "subtotal": "84.00",
+    "first_order_discount": "0.00",
+    "gst": "15.12",
+    "donation_amount": "0.00",
+    "total": "99.12",
+    "shipping_date": "2026-10-01",
+    "created_at": "2026-09-24T18:09:30.395Z"
+  }
+},
+{
+  "model": "store.order",
+  "pk": 8,
+  "fields": {
+    "order_id": "WB-2D1F86287AA441",
+    "user": [
+      "ghoshfalguni74@gmail.com"
+    ],
+    "customer_name": "Falguni Ghosh",
+    "customer_phone": "6295298065",
+    "customer_address": "Bamunara, Durgapur",
+    "payment_method": "online",
+    "status": "paid",
+    "subtotal": "420.00",
+    "first_order_discount": "0.00",
+    "gst": "75.60",
+    "donation_amount": "0.00",
+    "total": "495.60",
+    "shipping_date": "2026-10-01",
+    "created_at": "2026-09-24T18:10:44.639Z"
+  }
+},
+{
+  "model": "store.order",
+  "pk": 9,
+  "fields": {
+    "order_id": "WB-61303B856FE346",
+    "user": [
+      "ghoshfalguni74@gmail.com"
+    ],
+    "customer_name": "Falguni Ghosh",
+    "customer_phone": "6295298065",
+    "customer_address": "Bamunara, Durgapur",
+    "payment_method": "online",
+    "status": "paid",
+    "subtotal": "499.00",
+    "first_order_discount": "0.00",
+    "gst": "89.82",
+    "donation_amount": "0.00",
+    "total": "588.82",
+    "shipping_date": "2026-10-01",
+    "created_at": "2026-09-24T18:14:57.408Z"
+  }
+},
+{
+  "model": "store.order",
+  "pk": 10,
+  "fields": {
+    "order_id": "WB-B67E81070DF149",
+    "user": [
+      "paulanwesha610@gmail.com"
+    ],
+    "customer_name": "Anwesha Paul",
+    "customer_phone": "7797171123",
+    "customer_address": "M.A.M.C ,B2 ,V.K.nagar",
+    "payment_method": "cod",
+    "status": "placed",
+    "subtotal": "398.00",
+    "first_order_discount": "0.00",
+    "gst": "71.64",
+    "donation_amount": "0.00",
+    "total": "469.64",
+    "shipping_date": "2026-10-01",
+    "created_at": "2026-09-24T18:24:20.168Z"
+  }
+},
+{
+  "model": "store.orderline",
+  "pk": 1,
+  "fields": {
+    "order": 1,
+    "product": 6,
+    "product_code": "WB-E8CB2E62F7",
+    "product_name": "Cetaphil Baby Shampoo",
+    "quantity": 1,
+    "unit_price": "279.00",
+    "discount_amount": "41.85",
+    "line_total": "237.15"
+  }
+},
+{
+  "model": "store.orderline",
+  "pk": 2,
+  "fields": {
+    "order": 2,
+    "product": 1,
+    "product_code": "WB-BAE306E8CD",
+    "product_name": "Johnson's Baby Soap",
+    "quantity": 1,
+    "unit_price": "65.00",
+    "discount_amount": "0.00",
+    "line_total": "65.00"
+  }
+},
+{
+  "model": "store.orderline",
+  "pk": 3,
+  "fields": {
+    "order": 3,
+    "product": 6,
+    "product_code": "WB-E8CB2E62F7",
+    "product_name": "Cetaphil Baby Shampoo",
+    "quantity": 1,
+    "unit_price": "279.00",
+    "discount_amount": "41.85",
+    "line_total": "237.15"
+  }
+},
+{
+  "model": "store.orderline",
+  "pk": 4,
+  "fields": {
+    "order": 3,
+    "product": 3,
+    "product_code": "WB-1ED605CBBB",
+    "product_name": "Cetaphil Baby Soap",
+    "quantity": 1,
+    "unit_price": "99.00",
+    "discount_amount": "14.85",
+    "line_total": "84.15"
+  }
+},
+{
+  "model": "store.orderline",
+  "pk": 5,
+  "fields": {
+    "order": 4,
+    "product": 6,
+    "product_code": "WB-E8CB2E62F7",
+    "product_name": "Cetaphil Baby Shampoo",
+    "quantity": 1,
+    "unit_price": "279.00",
+    "discount_amount": "41.85",
+    "line_total": "237.15"
+  }
+},
+{
+  "model": "store.orderline",
+  "pk": 6,
+  "fields": {
+    "order": 4,
+    "product": 3,
+    "product_code": "WB-1ED605CBBB",
+    "product_name": "Cetaphil Baby Soap",
+    "quantity": 1,
+    "unit_price": "99.00",
+    "discount_amount": "14.85",
+    "line_total": "84.15"
+  }
+},
+{
+  "model": "store.orderline",
+  "pk": 7,
+  "fields": {
+    "order": 5,
+    "product": 2,
+    "product_code": "WB-2F0EB336A4",
+    "product_name": "Himalaya Nourishing Baby Soap",
+    "quantity": 1,
+    "unit_price": "84.00",
+    "discount_amount": "0.00",
+    "line_total": "84.00"
+  }
+},
+{
+  "model": "store.orderline",
+  "pk": 8,
+  "fields": {
+    "order": 6,
+    "product": 2,
+    "product_code": "WB-2F0EB336A4",
+    "product_name": "Himalaya Nourishing Baby Soap",
+    "quantity": 1,
+    "unit_price": "84.00",
+    "discount_amount": "0.00",
+    "line_total": "84.00"
+  }
+},
+{
+  "model": "store.orderline",
+  "pk": 9,
+  "fields": {
+    "order": 7,
+    "product": 2,
+    "product_code": "WB-2F0EB336A4",
+    "product_name": "Himalaya Nourishing Baby Soap",
+    "quantity": 1,
+    "unit_price": "84.00",
+    "discount_amount": "0.00",
+    "line_total": "84.00"
+  }
+},
+{
+  "model": "store.orderline",
+  "pk": 10,
+  "fields": {
+    "order": 8,
+    "product": 11,
+    "product_code": "WB-48FF240666",
+    "product_name": "Soft Knitted Bodysuit",
+    "quantity": 1,
+    "unit_price": "420.00",
+    "discount_amount": "0.00",
+    "line_total": "420.00"
+  }
+},
+{
+  "model": "store.orderline",
+  "pk": 11,
+  "fields": {
+    "order": 9,
+    "product": 10,
+    "product_code": "WB-FD896369B0",
+    "product_name": "Organic Cotton Romper",
+    "quantity": 1,
+    "unit_price": "499.00",
+    "discount_amount": "0.00",
+    "line_total": "499.00"
+  }
+},
+{
+  "model": "store.orderline",
+  "pk": 12,
+  "fields": {
+    "order": 10,
+    "product": 6,
+    "product_code": "WB-E8CB2E62F7",
+    "product_name": "Cetaphil Baby Shampoo",
+    "quantity": 1,
+    "unit_price": "279.00",
+    "discount_amount": "0.00",
+    "line_total": "279.00"
+  }
+},
+{
+  "model": "store.orderline",
+  "pk": 13,
+  "fields": {
+    "order": 10,
+    "product": 5,
+    "product_code": "WB-C648A357CA",
+    "product_name": "Himalaya Baby Shampoo",
+    "quantity": 1,
+    "unit_price": "119.00",
+    "discount_amount": "0.00",
+    "line_total": "119.00"
+  }
+},
+{
+  "model": "store.feedback",
+  "pk": 1,
+  "fields": {
+    "user": [
+      "paulanwesha610@gmail.com"
+    ],
+    "rating": 4,
+    "review": "very good",
+    "created_at": "2026-09-24T17:10:52.314Z"
+  }
+},
+{
+  "model": "store.feedback",
+  "pk": 2,
+  "fields": {
+    "user": [
+      "ghoshfalguni74@gmail.com"
+    ],
+    "rating": 5,
+    "review": "",
+    "created_at": "2026-09-24T18:11:44.902Z"
+  }
+},
+{
+  "model": "store.feedback",
+  "pk": 3,
+  "fields": {
+    "user": [
+      "ghoshfalguni74@gmail.com"
+    ],
+    "rating": 4,
+    "review": "Amazing product and service.",
+    "created_at": "2026-09-24T18:15:45.979Z"
+  }
+},
+{
+  "model": "store.feedback",
+  "pk": 4,
+  "fields": {
+    "user": [
+      "paulanwesha610@gmail.com"
+    ],
+    "rating": 5,
+    "review": "",
+    "created_at": "2026-09-24T18:24:38.605Z"
+  }
+}
+]
