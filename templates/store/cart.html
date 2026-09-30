@@ -33,6 +33,7 @@
     const item = cart.find(entry => entry.name === name);
     if (item) item.quantity += change;
     localStorage.setItem(cartKey, JSON.stringify(cart.filter(entry => entry.quantity > 0)));
+    if (window.syncCartBadge) window.syncCartBadge();
     renderCart();
   }
 

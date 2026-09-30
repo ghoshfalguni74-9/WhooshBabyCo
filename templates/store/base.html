@@ -3,38 +3,216 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}Whoosh{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>{% block title %}Whoosh BabyCo{% endblock %}</title>
   
   <link rel="stylesheet" href="{% static 'css/store.css' %}">
 </head>
 <body>
-  <header class="topbar">
+  <header class="topbar" id="mainHeader">
     <div class="container nav">
-      <div class="logo">
-        <span class="logo-badge">!^!</span>
-        <span>Whoosh BabyCo</span>
-      </div>
-      <nav class="nav-links">
-        <a href="{% url 'home' %}" aria-label="Home">🏠</a>
-        <a href="{% url 'profile' %}" aria-label="Profile">👤</a>
-        <a href="{% url 'cart' %}" aria-label="Cart">🛒</a>
-        {% if request.user.is_authenticated %}
-          <a href="{% url 'logout' %}" aria-label="Log out">Logout</a>
-        {% else %}
-          <a href="{% url 'login_page' %}" aria-label="Log in">Login</a>
-        {% endif %}
+      <a href="{% url 'home' %}" class="logo" aria-label="Whoosh BabyCo Home">
+        <span class="logo-badge" aria-hidden="true">!^!</span>
+        <span class="logo-text">Whoosh <span class="logo-accent">BabyCo</span></span>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="nav-links desktop-nav" aria-label="Main Navigation">
+        <a href="{% url 'home' %}" class="nav-item">Home</a>
+        <a href="{% url 'nutrition' %}" class="nav-item">Nutrition</a>
+        <a href="{% url 'growth' %}" class="nav-item">Growth</a>
+        <a href="{% url 'appointment' %}" class="nav-item">Appointment</a>
+        <a href="{% url 'contact' %}" class="nav-item">Support</a>
       </nav>
+
+      <!-- Header Action Items (Desktop + Mobile) -->
+      <div class="nav-actions">
+        <a href="{% url 'cart' %}" class="nav-icon-link cart-link" aria-label="Shopping Cart">
+          <span class="nav-icon" aria-hidden="true">🛒</span>
+          <span class="cart-badge-count" id="headerCartCount" style="display:none;">0</span>
+        </a>
+        <a href="{% url 'profile' %}" class="nav-icon-link profile-link" aria-label="User Profile" title="Profile">
+          <span class="nav-icon" aria-hidden="true">👤</span>
+        </a>
+        {% if request.user.is_authenticated %}
+          <a href="{% url 'logout' %}" class="nav-btn logout-btn desktop-only">Logout</a>
+        {% else %}
+          <a href="{% url 'login_page' %}" class="nav-btn login-btn desktop-only">Login</a>
+        {% endif %}
+
+        <!-- Mobile Menu Hamburger Button -->
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileDrawer">
+          <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+          </span>
+        </button>
+      </div>
     </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+      <div class="mobile-drawer-header">
+        <div class="mobile-drawer-brand">
+          <span class="logo-badge sm" aria-hidden="true">!^!</span>
+          <span>Whoosh BabyCo</span>
+        </div>
+        <button class="mobile-drawer-close" id="mobileDrawerClose" type="button" aria-label="Close menu">&times;</button>
+      </div>
+
+      <div class="mobile-drawer-content">
+        <div class="drawer-section-title">Shop by Category</div>
+        <div class="mobile-category-chips">
+          <a href="{% url 'category' 'soap' %}" class="category-chip">🧼 Soaps</a>
+          <a href="{% url 'category' 'shampoo' %}" class="category-chip">🧴 Shampoo</a>
+          <a href="{% url 'category' 'oil' %}" class="category-chip">🫒 Oil</a>
+          <a href="{% url 'category' 'clothes' %}" class="category-chip">👕 Clothes</a>
+          <a href="{% url 'category' 'toys' %}" class="category-chip">🧸 Toys</a>
+          <a href="{% url 'category' 'accessories' %}" class="category-chip">🎒 Accessories</a>
+        </div>
+
+        <div class="drawer-section-title">Explore Services</div>
+        <nav class="mobile-nav-list">
+          <a href="{% url 'home' %}" class="mobile-nav-item">
+            <span class="mobile-nav-icon">🏠</span>
+            <span>Home</span>
+          </a>
+          <a href="{% url 'nutrition' %}" class="mobile-nav-item">
+            <span class="mobile-nav-icon">🥗</span>
+            <span>Nutrition Calculator</span>
+          </a>
+          <a href="{% url 'growth' %}" class="mobile-nav-item">
+            <span class="mobile-nav-icon">📈</span>
+            <span>Growth Tracker</span>
+          </a>
+          <a href="{% url 'appointment' %}" class="mobile-nav-item">
+            <span class="mobile-nav-icon">🩺</span>
+            <span>Pediatrician Appointment</span>
+          </a>
+          <a href="{% url 'contact' %}" class="mobile-nav-item">
+            <span class="mobile-nav-icon">💬</span>
+            <span>Customer Support & Chat</span>
+          </a>
+          <a href="{% url 'cart' %}" class="mobile-nav-item">
+            <span class="mobile-nav-icon">🛒</span>
+            <span>My Cart (<span class="mobile-cart-count">0</span>)</span>
+          </a>
+          <a href="{% url 'profile' %}" class="mobile-nav-item">
+            <span class="mobile-nav-icon">👤</span>
+            <span>My Profile</span>
+          </a>
+        </nav>
+
+        <div class="mobile-drawer-footer">
+          {% if request.user.is_authenticated %}
+            <a href="{% url 'logout' %}" class="drawer-btn logout-btn">Logout</a>
+          {% else %}
+            <div class="drawer-auth-grid">
+              <a href="{% url 'login_page' %}" class="drawer-btn login-btn">Login</a>
+              <a href="{% url 'signup' %}" class="drawer-btn signup-btn">Sign Up</a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <!-- Backdrop overlay -->
+    <div class="mobile-backdrop" id="mobileBackdrop" aria-hidden="true"></div>
   </header>
+
   <main>
     {% block content %}{% endblock %}
   </main>
+
   <footer>
     <div class="footer-inner container">
-      <div>&copy; 2026 whoosh</div>
-      <div>Made with care · <a href="{% url 'contact' %}">Contact</a></div>
+      <div class="footer-brand-col">
+        <div class="logo footer-logo">
+          <span class="logo-badge sm">!^!</span>
+          <span>Whoosh BabyCo</span>
+        </div>
+        <p class="footer-tagline">Gentle care for little ones — bathing essentials, nutrition, and wellness.</p>
+      </div>
+      <div class="footer-links-col">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'nutrition' %}">Nutrition</a>
+        <a href="{% url 'growth' %}">Growth</a>
+        <a href="{% url 'appointment' %}">Appointment</a>
+        <a href="{% url 'contact' %}">Contact</a>
+      </div>
+      <div class="footer-bottom-col">
+        <div>&copy; 2026 Whoosh BabyCo. All rights reserved.</div>
+        <div class="footer-credit">Made with care for every growing smile.</div>
+      </div>
     </div>
   </footer>
+
+  <script>
+    (function() {
+      const toggle = document.getElementById('mobileMenuToggle');
+      const drawer = document.getElementById('mobileDrawer');
+      const backdrop = document.getElementById('mobileBackdrop');
+      const closeBtn = document.getElementById('mobileDrawerClose');
+
+      function openMenu() {
+        if (!drawer || !backdrop || !toggle) return;
+        drawer.classList.add('is-open');
+        backdrop.classList.add('is-open');
+        toggle.classList.add('is-open');
+        toggle.setAttribute('aria-expanded', 'true');
+        drawer.setAttribute('aria-hidden', 'false');
+        backdrop.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('menu-open');
+      }
+
+      function closeMenu() {
+        if (!drawer || !backdrop || !toggle) return;
+        drawer.classList.remove('is-open');
+        backdrop.classList.remove('is-open');
+        toggle.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+        drawer.setAttribute('aria-hidden', 'true');
+        backdrop.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('menu-open');
+      }
+
+      if (toggle) toggle.addEventListener('click', () => {
+        if (drawer.classList.contains('is-open')) closeMenu();
+        else openMenu();
+      });
+
+      if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+      if (backdrop) backdrop.addEventListener('click', closeMenu);
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && drawer && drawer.classList.contains('is-open')) {
+          closeMenu();
+        }
+      });
+
+      // Synchronize Cart Badge across pages
+      function syncCartBadge() {
+        try {
+          const cart = JSON.parse(localStorage.getItem('whoosh_cart') || '[]');
+          const count = cart.reduce((sum, item) => sum + (Number(item.quantity) || 1), 0);
+          const badge = document.getElementById('headerCartCount');
+          const mobileCount = document.querySelector('.mobile-cart-count');
+          if (badge) {
+            if (count > 0) {
+              badge.textContent = count > 99 ? '99+' : count;
+              badge.style.display = 'inline-flex';
+            } else {
+              badge.style.display = 'none';
+            }
+          }
+          if (mobileCount) {
+            mobileCount.textContent = count;
+          }
+        } catch(e) {}
+      }
+
+      syncCartBadge();
+      window.addEventListener('storage', syncCartBadge);
+      window.syncCartBadge = syncCartBadge;
+    })();
+  </script>
 </body>
 </html>

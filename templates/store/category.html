@@ -46,6 +46,7 @@
       if (item) item.quantity += change;
       else if (change > 0) cart.push({ name, price, originalPrice, product_code: productCode, quantity: 1 });
       saveCart(cart.filter(entry => entry.quantity > 0));
+      if (window.syncCartBadge) window.syncCartBadge();
       renderControl();
     }
 
